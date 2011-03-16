@@ -14,7 +14,7 @@ Statify - Datenschutz-konformes Statistik-Plugin für WordPress.
 
 Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.com Stats verarbeitet, speichert und überträgt *Statify* keine personenbezogenen Daten wie z.B. IP-Adressen der Besucher. Eine lokal angelegte Tabelle besteht aus 4 Feldern: ID, Datum, Quelle, Ziel.
 
-Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed- und Ressourcen-Ansichten.
+Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und angemeldete Besucher.
 
 Vielen Dank für die Unterstützung der Entwicklung via [PayPal](http://playground.ebiene.de/donate/ "PayPal") oder [Flattr](http://flattr.com/profile/sergej.mueller "Flattr").
 
@@ -45,4 +45,4 @@ Vielen Dank für die Unterstützung der Entwicklung via [PayPal](http://playgrou
 1. *Statify* aktivieren
 1. Dashboard aufrufen
 1. Einstellungen im Widget über *Konfigurieren* vornehmen
-1. Ferig
+1. Fertig
