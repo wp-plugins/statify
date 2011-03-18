@@ -379,7 +379,7 @@ $end = esc_html__('Heute', 'statify');
 $stats['counts'] = array(
 'counts' => implode('|', $output),
 'x_axis' => sprintf('%s%s', $start, $end),
-'y_axis' => sprintf('%d|%d', intval($max / 2), $max),
+'y_axis' => sprintf('%d|%d', intval($max / 2), $max)
 );
 set_transient(
 'statify',
