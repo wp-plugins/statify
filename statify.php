@@ -7,7 +7,7 @@ Description: Kompakte, verständliche und anonyme Statistik für Blogseiten.
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://wpcoder.de
-Version: 0.4
+Version: 0.5
 */
 
 
@@ -148,7 +148,7 @@ return $options;
 }
 public static function front()
 {
-if ( (!$stats = self::$stats) or empty($stats['target']) or empty($stats['referrer']) ) {
+if ( (!$stats = self::$stats) or empty($stats['target']) ) {
 return;
 } ?>
 <div id="statify_chart"></div>
@@ -156,6 +156,13 @@ return;
 <p class="sub"><?php esc_html_e('Top Referrer', 'statify'); ?></p>
 <div>
 <table>
+<?php if ( empty($stats['referrer']) ) { ?>
+<tr>
+<td>
+<em><?php esc_html_e('Keine', 'statify'); ?></em>
+</td>
+</tr>
+<?php } else { ?>
 <?php foreach ($stats['referrer'] as $referrer) { ?>
 <tr class="first">
 <td class="first b">
@@ -165,6 +172,7 @@ return;
 <a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_html($referrer['host']) ?></a>
 </td>
 </tr>
+<?php } ?>
 <?php } ?>
 </table>
 </div>

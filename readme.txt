@@ -2,7 +2,7 @@
 Contributors: stalkerX
 Tags: stats, analytics, privacy
 Requires at least: 3.0
-Tested up to: 3.1
+Tested up to: 3.2
 Stable tag: trunk
 
 Statify - Datenschutz-konformes Statistik-Plugin für WordPress.
@@ -27,6 +27,9 @@ Vielen Dank für die Unterstützung der Entwicklung via [PayPal](http://playgrou
 
 
 == Changelog ==
+= 0.5 =
+* Fix: Abfrage für fehlende Referrer im Dashboard Widget
+
 = 0.4 =
 * Statify geht online
 
