@@ -53,6 +53,15 @@ __CLASS__,
 'dashboard'
 )
 );
+add_filter(
+'plugin_row_meta',
+array(
+__CLASS__,
+'meta'
+),
+10,
+2
+);
 } else {
 add_action(
 'template_redirect',
@@ -62,6 +71,22 @@ __CLASS__,
 )
 );
 }
+}
+public static function meta($links, $file)
+{
+$base = plugin_basename(__FILE__);
+if ( $base == $file ) {
+return array_merge(
+$links,
+array(
+sprintf(
+'<a href="http://flattr.com/thing/148966/Statify-Plugin-fur-Datenschutz-konforme-Statistik-in-WordPress" target="_blank">%s</a>',
+esc_html__('Plugin flattern')
+)
+)
+);
+}
+return $links;
 }
 public static function dashboard()
 {
@@ -227,7 +252,7 @@ wp_nonce_field('_statify'); ?>
 <tr>
 <td>
 <select name="statify[limit]" id="statify_limit">
-<?php foreach(range(1, 12) as $num) { ?>
+<?php foreach(range(0, 12) as $num) { ?>
 <option <?php selected($options['limit'], $num); ?>><?php echo $num; ?></option>
 <?php } ?>
 </select>
@@ -341,7 +366,7 @@ $options['limit']
 ),
 ARRAY_A
 ),
-'referrer'=> $wpdb->get_results(
+'referrer' => $wpdb->get_results(
 $wpdb->prepare(
 "SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$table`WHERE `referrer` != '' GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
 $options['limit']
