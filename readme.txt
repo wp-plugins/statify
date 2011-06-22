@@ -10,23 +10,30 @@ Statify - Datenschutz-konformes Statistik-Plugin für WordPress.
 
 == Description ==
 = Kompakt und anonym: Statify Stats =
-*Statify* konzentriert sich aufs Wesentliche: Auf dem Dashboard präsentiert das Plugin den aktuellen Verlauf der Seitenaufrufe in Form eines Diagramms, eine Liste der häufigsten Verweise und eine Übersicht an meist aufgerufenen Zielseiten innerhalb des Blogs. Der Aufbewahrungs- bzw. Anzeige-Zeitraum sowie die Länge der Listen lassen sich nach Wünschen des WordPress-Nutzers direkt im Widget anpassen.
+*Statify* konzentriert sich aufs Wesentliche: Auf dem Dashboard präsentiert das Plugin den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms, gefolgt von jeweils einer Liste mit häufigsten Verweisen und meist aufgerufenen Zielseiten innerhalb des Blogs. Der Aufbewahrungs- bzw. Anzeige-Zeitraum sowie die Länge der Listen lassen sich nach Wünschen des WordPress-Nutzers direkt im Widget anpassen.
 
-Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.com Stats verarbeitet, speichert und überträgt *Statify* keine personenbezogenen Daten wie z.B. IP-Adressen der Besucher. Eine lokal angelegte Tabelle besteht aus 4 Feldern: ID, Datum, Quelle, Ziel.
+Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.com Stats verarbeitet, speichert und überträgt *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen der Besucher. Transparente Arbeitsweise: Eine lokal angelegte Datenbanktabelle besteht aus 4 Feldern: ID, Datum, Quelle, Ziel.
 
-Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und angemeldete Besucher.
+Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und angemeldete Nutzer.
 
-Vielen Dank für die Unterstützung der Entwicklung via [PayPal](http://playground.ebiene.de/donate/ "PayPal") oder [Flattr](http://flattr.com/profile/sergej.mueller "Flattr").
+Einsatzbereit auch auf WordPress Multisite Blogs. Weitere Details und Informationen in der [Dokumentation](http://playground.ebiene.de/2661/statify-wordpress-statistik/ "Statify - WordPress Statistiken").
 
-= Documentation =
-* [Dokumentation](http://playground.ebiene.de/2661/statify-wordpress-statistik/ "Statify - WordPress Statistiken")
-* [Twitter](http://twitter.com/wpSEO "wpSEO on Twitter")
+
+= Weiterführende Links =
 * [Blog](http://playground.ebiene.de "Playground Blog")
-* [Andere Plugins](http://wpcoder.de "Andere plugins")
+* [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
+* [Twitter](http://twitter.com/wpSEO "wpSEO on Twitter")
 * [Portfolio](http://ebiene.de "Portfolio")
+* [Andere Plugins](http://wpcoder.de "Andere Plugins")
 
 
 == Changelog ==
+= 0.6 =
+* WordPress 3.2 Unterstützung
+* Support für WordPress Multisite
+* Bereinigung überflüssiger URL-Parameter bei Zielseiten
+* Interaktive Statistik mit weiterführenden Informationen
+
 = 0.5 =
 * Fix: Abfrage für fehlende Referrer im Dashboard Widget
 
@@ -41,11 +48,7 @@ Vielen Dank für die Unterstützung der Entwicklung via [PayPal](http://playgrou
 
 
 == Installation ==
-1. Download *Statify* Plugin
-1. Archiv entpacken
-1. Ordner *statify* nach `../wp-content/plugins/` uploaden
-1. Tab *Plugins* aufrufen
-1. *Statify* aktivieren
+1. *Statify* installieren
+1. [Dokumentation](http://playground.ebiene.de/2661/statify-wordpress-statistik/ "Statify - WordPress Statistiken") beachten
 1. Dashboard aufrufen
-1. Einstellungen im Widget über *Konfigurieren* vornehmen
-1. Fertig
+1. Einstellungen im *Statify* Widget über *Konfigurieren* vornehmen

@@ -3,61 +3,59 @@
 Plugin Name: Statify
 Text Domain: statify
 Domain Path: /lang
-Description: Kompakte, verständliche und anonyme Statistik für Blogseiten.
+Description: Kompakte, verständliche und datenschutzkonforme Statistik für WordPress.
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://wpcoder.de
-Version: 0.5
+Version: 0.6
 */
 
 
-if ( !function_exists ('is_admin') ) {
+if ( !class_exists('WP') ) {
 header('Status: 403 Forbidden');
 header('HTTP/1.1 403 Forbidden');
 exit();
 }
 class Statify
 {
-private static $table;
+private static $base;
 private static $stats;
 private static $limit = 3;
 private static $days = 14;
-public function __construct()
+public static function init()
 {
 if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) or (defined('DOING_CRON') && DOING_CRON) or (defined('DOING_AJAX') && DOING_AJAX) ) {
 return;
 }
-self::$table = $GLOBALS['wpdb']->prefix. 'statify';
-add_action(
-'plugins_loaded',
-array(
-__CLASS__,
-'init'
-)
-);
-register_activation_hook(
-__FILE__,
-array(
-__CLASS__,
-'activate'
-)
-);
-}
-public static function init()
-{
+self::$base = plugin_basename(__FILE__);
+Statify_Table::init();
 if ( is_admin() ) {
+add_action(
+'wpmu_new_blog',
+array(
+__CLASS__,
+'install_later'
+)
+);
+add_action(
+'delete_blog',
+array(
+__CLASS__,
+'uninstall_later'
+)
+);
 add_action(
 'wp_dashboard_setup',
 array(
 __CLASS__,
-'dashboard'
+'init_dashboard'
 )
 );
 add_filter(
 'plugin_row_meta',
 array(
 __CLASS__,
-'meta'
+'init_meta'
 ),
 10,
 2
@@ -67,70 +65,69 @@ add_action(
 'template_redirect',
 array(
 __CLASS__,
-'push'
+'db_push'
 )
 );
 }
 }
-public static function meta($links, $file)
+public static function init_meta($links, $file)
 {
-$base = plugin_basename(__FILE__);
-if ( $base == $file ) {
+if ( self::$base == $file ) {
 return array_merge(
 $links,
 array(
-sprintf(
-'<a href="http://flattr.com/thing/148966/Statify-Plugin-fur-Datenschutz-konforme-Statistik-in-WordPress" target="_blank">%s</a>',
-esc_html__('Plugin flattern')
-)
+'<a href="http://flattr.com/thing/148966/Statify-Plugin-fur-Datenschutz-konforme-Statistik-in-WordPress" target="_blank">Plugin flattern</a>'
 )
 );
 }
 return $links;
 }
-public static function dashboard()
+public static function init_dashboard()
 {
 if ( !current_user_can('administrator') ) {
 return;
 }
-self::prepare();
+self::_prepare_stats();
 wp_add_dashboard_widget(
 'statify_dashboard',
 'Statify',
 array(
 __CLASS__,
-'front'
+'front_view'
 ),
 array(
 __CLASS__,
-'back'
+'back_view'
 )
 );
 add_action(
 'admin_head',
 array(
 __CLASS__,
-'style'
+'add_style'
 )
 );
 add_action(
 'wp_print_scripts',
 array(
 __CLASS__,
-'javascript'
+'add_js'
 )
 );
 }
-public static function style()
+public static function add_style()
 {
+$plugin = get_plugin_data(__FILE__);
 wp_register_style(
 'statify',
-plugins_url('/css/dashboard.css', __FILE__)
+plugins_url('/css/dashboard.css', __FILE__),
+array(),
+$plugin['Version']
 );
 wp_print_styles('statify');
 }
-public static function javascript() {
-if ( (!$stats = self::$stats) or empty($stats['counts']) ) {
+public static function add_js() {
+if ( (!$stats = self::$stats) or empty($stats['visits']) ) {
 return;
 }
 $plugin = get_plugin_data(__FILE__);
@@ -150,10 +147,10 @@ wp_enqueue_script('statify');
 wp_localize_script(
 'statify',
 'statify',
-$stats['counts']
+$stats['visits']
 );
 }
-private static function options()
+private static function get_options()
 {
 if ( $options = wp_cache_get('statify') ) {
 return $options;
@@ -171,20 +168,22 @@ $options
 );
 return $options;
 }
-public static function front()
+public static function front_view()
 {
-if ( (!$stats = self::$stats) or empty($stats['target']) ) {
+if ( (!$stats = self::$stats) or empty($stats['visits']) ) {
+echo '<p>Heutige Werte werden erst gesammelt.</p>';
 return;
 } ?>
 <div id="statify_chart"></div>
+<?php if ( !empty($stats['target']) ) { ?>
 <div class="table referrer">
-<p class="sub"><?php esc_html_e('Top Referrer', 'statify'); ?></p>
+<p class="sub">Top Referrer</p>
 <div>
 <table>
 <?php if ( empty($stats['referrer']) ) { ?>
 <tr>
 <td>
-<em><?php esc_html_e('Keine', 'statify'); ?></em>
+Keine
 </td>
 </tr>
 <?php } else { ?>
@@ -194,7 +193,7 @@ return;
 <a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo intval($referrer['count']) ?></a>
 </td>
 <td class="t">
-<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_html($referrer['host']) ?></a>
+<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
 </td>
 </tr>
 <?php } ?>
@@ -203,7 +202,7 @@ return;
 </div>
 </div>
 <div class="table target">
-<p class="sub"><?php esc_html_e('Top Ziele', 'statify'); ?></p>
+<p class="sub">Top Ziele</p>
 <div>
 <table>
 <?php foreach ($stats['target'] as $target) { ?>
@@ -212,15 +211,16 @@ return;
 <a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo intval($target['count']) ?></a>
 </td>
 <td class="last t">
-<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_html($target['url']) ?></a>
+<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
 </td>
 </tr>
 <?php } ?>
 </table>
 </div>
 </div>
+<?php } ?>
 <?php }
-public static function back()
+public static function back_view()
 {
 if ( !empty($_POST['statify']) ) {
 if (!current_user_can('edit_plugins')) {
@@ -236,7 +236,7 @@ array(
 );
 delete_transient('statify');
 }
-$options = self::options();
+$options = self::get_options();
 wp_nonce_field('_statify'); ?>
 <table class="form-table">
 <tr>
@@ -262,7 +262,32 @@ wp_nonce_field('_statify'); ?>
 </table>
 <?php
 }
-public static function activate()
+public static function install()
+{
+global $wpdb;
+if ( is_multisite() && !empty($_GET['networkwide']) ) {
+$ids = $wpdb->get_col(
+$wpdb->prepare("SELECT blog_id FROM `$wpdb->blogs`")
+);
+foreach ($ids as $id) {
+switch_to_blog( (int)$id );
+self::_install_backend();
+}
+restore_current_blog();
+} else {
+self::_install_backend();
+}
+}
+public static function install_later($id) {
+global $wpdb;
+if ( !is_plugin_active_for_network(self::$base) ) {
+return;
+}
+switch_to_blog( (int)$id );
+self::_install_backend();
+restore_current_blog();
+}
+protected static function _install_backend()
 {
 add_option(
 'statify',
@@ -270,32 +295,60 @@ array(),
 '',
 'no'
 );
-$table = self::$table;
-if ( $GLOBALS['wpdb']->get_var("SHOW TABLES LIKE '$table'") == $table ) {
-return;
+delete_transient('statify');
+Statify_Table::init();
+Statify_Table::create();
 }
-require_once(ABSPATH. 'wp-admin/includes/upgrade.php');
-dbDelta(
-"CREATE TABLE `$table` (
-`id` bigint(20) unsigned NOT NULL auto_increment,
-`created` date NOT NULL default '0000-00-00',
-`referrer` varchar(255) NOT NULL default '',
-`target` varchar(255) NOT NULL default '',
-PRIMARY KEY(`id`),
-KEY `referrer` (`referrer`),
-KEY `target` (`target`),
-KEY `created` (`created`)
-);"
-);
-}
-public static function push()
+public static function uninstall()
 {
-if ( is_feed() or is_trackback() or is_robots() or is_preview() or is_user_logged_in() or self::is_bot() ) {
+global $wpdb;
+if ( is_multisite() && !empty($_GET['networkwide']) ) {
+$old = $wpdb->blogid;
+$ids = $wpdb->get_col(
+$wpdb->prepare("SELECT blog_id FROM `$wpdb->blogs`")
+);
+foreach ($ids as $id) {
+switch_to_blog($id);
+self::_uninstall_backend();
+}
+switch_to_blog($old);
+} else {
+self::_uninstall_backend();
+}
+}
+public static function uninstall_later($id) {
+global $wpdb;
+if ( !is_plugin_active_for_network(self::$base) ) {
 return;
 }
+switch_to_blog( (int)$id );
+self::_uninstall_backend();
+restore_current_blog();
+}
+protected static function _uninstall_backend()
+{
+delete_option('statify');
+delete_transient('statify');
+Statify_Table::init();
+Statify_Table::drop();
+}
+public static function update()
+{
+self::_update_backend();
+}
+protected static function _update_backend()
+{
+delete_transient('statify');
+}
+public static function db_push()
+{
+if ( is_feed() or is_trackback() or is_robots() or is_preview() or is_user_logged_in() or is_404() or self::_is_bot() ) {
+return;
+}
+global $wpdb, $wp_rewrite;
 $data = array();
 $home = home_url();
-$data['created'] = strftime('%Y-%m-%d');
+$data['created'] = strftime('%Y-%m-%d', current_time('timestamp'));
 if ( !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $home) === false ) {
 $data['referrer'] = esc_url_raw($_SERVER['HTTP_REFERER']);
 }
@@ -308,12 +361,15 @@ home_url(
 )
 )
 );
-$GLOBALS['wpdb']->insert(
-self::$table,
+if ( $wp_rewrite->permalink_structure && !is_search() ) {
+$data['target'] = preg_replace('/\?.*/', '', $data['target']);
+}
+$wpdb->insert(
+$wpdb->statify,
 $data
 );
 }
-private static function is_bot()
+protected static function _is_bot()
 {
 if ( empty($_SERVER['HTTP_USER_AGENT']) ) {
 return true;
@@ -323,22 +379,21 @@ return true;
 }
 return false;
 }
-private static function clean()
+protected static function _clean_data()
 {
 if ( get_transient('statify_cron') ) {
 return;
 }
 global $wpdb;
-$table = self::$table;
-$options = self::options();
+$options = self::get_options();
 $wpdb->query(
 $wpdb->prepare(
-"DELETE FROM `$table` WHERE created <= SUBDATE(CURDATE(), %d)",
+"DELETE FROM `$wpdb->statify` WHERE created <= SUBDATE(CURDATE(), %d)",
 $options['days']
 )
 );
 $wpdb->query(
-"OPTIMIZE TABLE `$table`"
+"OPTIMIZE TABLE `$wpdb->statify`"
 );
 set_transient(
 'statify_cron',
@@ -346,73 +401,60 @@ set_transient(
 60 * 60 * 12
 );
 }
-private static function stats()
+protected static function _get_stats()
 {
 global $wpdb;
-$table = self::$table;
-$options = self::options();
+$options = self::get_options();
 return array(
-'counts' => $wpdb->get_results(
+'visits' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT `created`, COUNT(`created`) as `count` FROM `$table` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
+"SELECT DATE_FORMAT(`created`, '%%d.%%m') as `created`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
 $options['days']
 ),
 ARRAY_A
 ),
 'target' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$table` GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
+"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
 $options['limit']
 ),
 ARRAY_A
 ),
 'referrer' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$table`WHERE `referrer` != '' GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
+"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
 $options['limit']
 ),
 ARRAY_A
 )
 );
 }
-private static function prepare()
+protected static function _prepare_stats()
 {
 if ( ($stats = get_transient('statify')) && self::$stats = $stats ) {
 return;
 }
-self::clean();
-if ( !$stats = self::stats() ) {
+self::_clean_data();
+if ( !$stats = self::_get_stats() ) {
 return;
 }
-if ( !$counts = $stats['counts'] ) {
+if ( !$visits = $stats['visits'] ) {
 return;
 }
-$output = array();
-foreach($counts as $row) {
-array_unshift($output, $row['count']);
+if ( $visits[0]['created'] == date('d.m', current_time('timestamp')) ) {
+$visits[0]['created'] = 'Heute';
 }
-$first = $counts[0];
-$last = end($counts);
-$start = '';
-$end = $first['created'];
-$max = max($output);
-if ( $first != $last ) {
-$start = sprintf(
-'%s %s|',
-human_time_diff(
-strtotime($last['created']),
-strtotime($end)
-),
-esc_html__('zuvor', 'statify')
+$output = array(
+'created' => array(),
+'count' => array()
 );
+foreach($visits as $item) {
+array_push($output['created'], $item['created']);
+array_push($output['count'], $item['count']);
 }
-if ( $end == strftime('%Y-%m-%d') ) {
-$end = esc_html__('Heute', 'statify');
-}
-$stats['counts'] = array(
-'counts' => implode('|', $output),
-'x_axis' => sprintf('%s%s', $start, $end),
-'y_axis' => sprintf('%d|%d', intval($max / 2), $max)
+$stats['visits'] = array(
+'created' => implode(',', $output['created']),
+'count' => implode(',', $output['count'])
 );
 set_transient(
 'statify',
@@ -421,4 +463,56 @@ $stats,
 self::$stats = $stats;
 }
 }
-new Statify();
+class Statify_Table
+{
+public function init()
+{
+global $wpdb;
+$table = 'statify';
+$wpdb->tables[] = $table;
+$wpdb->$table = $wpdb->get_blog_prefix() . $table;
+}
+public function create()
+{
+global $wpdb;
+if ( $wpdb->get_var("SHOW TABLES LIKE '$wpdb->statify'") == $wpdb->statify ) {
+return;
+}
+require_once(ABSPATH. 'wp-admin/includes/upgrade.php');
+dbDelta(
+"CREATE TABLE `$wpdb->statify` (
+`id` bigint(20) unsigned NOT NULL auto_increment,
+`created` date NOT NULL default '0000-00-00',
+`referrer` varchar(255) NOT NULL default '',
+`target` varchar(255) NOT NULL default '',
+PRIMARY KEY(`id`),
+KEY `referrer` (`referrer`),
+KEY `target` (`target`),
+KEY `created` (`created`)
+);"
+);
+}
+public function drop()
+{
+global $wpdb;
+$wpdb->query("DROP TABLE IF EXISTS `$wpdb->statify`");
+}
+}
+add_action(
+'plugins_loaded',
+'Statify::init'
+);
+register_activation_hook(
+__FILE__,
+'Statify::install'
+);
+register_uninstall_hook(
+__FILE__,
+'Statify::uninstall'
+);
+if ( function_exists('register_update_hook') ) {
+register_update_hook(
+__FILE__,
+'Statify::update'
+);
+}
