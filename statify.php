@@ -7,7 +7,7 @@ Description: Kompakte, verständliche und datenschutzkonforme Statistik für Wor
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://wpcoder.de
-Version: 0.6
+Version: 0.7
 */
 
 
@@ -24,7 +24,7 @@ private static $limit = 3;
 private static $days = 14;
 public static function init()
 {
-if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) or (defined('DOING_CRON') && DOING_CRON) or (defined('DOING_AJAX') && DOING_AJAX) ) {
+if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) or (defined('DOING_CRON') && DOING_CRON) or (defined('DOING_AJAX') && DOING_AJAX) or (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) {
 return;
 }
 self::$base = plugin_basename(__FILE__);
@@ -279,7 +279,6 @@ self::_install_backend();
 }
 }
 public static function install_later($id) {
-global $wpdb;
 if ( !is_plugin_active_for_network(self::$base) ) {
 return;
 }
@@ -287,7 +286,7 @@ switch_to_blog( (int)$id );
 self::_install_backend();
 restore_current_blog();
 }
-protected static function _install_backend()
+private static function _install_backend()
 {
 add_option(
 'statify',
@@ -325,7 +324,7 @@ switch_to_blog( (int)$id );
 self::_uninstall_backend();
 restore_current_blog();
 }
-protected static function _uninstall_backend()
+private static function _uninstall_backend()
 {
 delete_option('statify');
 delete_transient('statify');
@@ -336,7 +335,7 @@ public static function update()
 {
 self::_update_backend();
 }
-protected static function _update_backend()
+private static function _update_backend()
 {
 delete_transient('statify');
 }
@@ -369,7 +368,7 @@ $wpdb->statify,
 $data
 );
 }
-protected static function _is_bot()
+private static function _is_bot()
 {
 if ( empty($_SERVER['HTTP_USER_AGENT']) ) {
 return true;
@@ -379,7 +378,7 @@ return true;
 }
 return false;
 }
-protected static function _clean_data()
+private static function _clean_data()
 {
 if ( get_transient('statify_cron') ) {
 return;
@@ -401,14 +400,14 @@ set_transient(
 60 * 60 * 12
 );
 }
-protected static function _get_stats()
+private static function _get_stats()
 {
 global $wpdb;
 $options = self::get_options();
 return array(
 'visits' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT DATE_FORMAT(`created`, '%%d.%%m') as `created`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
+"SELECT DATE_FORMAT(`created`, '%%d.%%m') as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
 $options['days']
 ),
 ARRAY_A
@@ -429,7 +428,7 @@ ARRAY_A
 )
 );
 }
-protected static function _prepare_stats()
+private static function _prepare_stats()
 {
 if ( ($stats = get_transient('statify')) && self::$stats = $stats ) {
 return;
@@ -441,15 +440,15 @@ return;
 if ( !$visits = $stats['visits'] ) {
 return;
 }
-if ( $visits[0]['created'] == date('d.m', current_time('timestamp')) ) {
-$visits[0]['created'] = 'Heute';
+if ( $visits[0]['date'] == date('d.m', current_time('timestamp')) ) {
+$visits[0]['date'] = 'Heute';
 }
 $output = array(
 'created' => array(),
 'count' => array()
 );
 foreach($visits as $item) {
-array_push($output['created'], $item['created']);
+array_push($output['created'], $item['date']);
 array_push($output['count'], $item['count']);
 }
 $stats['visits'] = array(

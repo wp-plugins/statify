@@ -29,6 +29,10 @@ Weitere Details und Informationen in der [Dokumentation](http://playground.ebien
 
 
 == Changelog ==
+= 0.7 =
+* Umsortierung der Statistiktage
+* Umfärbung der Statistikmarkierung
+
 = 0.6 =
 * WordPress 3.2 Unterstützung
 * Support für WordPress Multisite
