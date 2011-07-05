@@ -32,6 +32,7 @@ Weitere Details und Informationen in der [Dokumentation](http://playground.ebien
 = 0.7 =
 * Umsortierung der Statistiktage
 * Umfärbung der Statistikmarkierung
+* Ignorierung der XMLRPC-Requests
 
 = 0.6 =
 * WordPress 3.2 Unterstützung
