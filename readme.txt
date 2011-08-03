@@ -23,7 +23,7 @@ Weitere Details und Informationen in der [Dokumentation](http://playground.ebien
 = Weiterführende Links =
 * [Blog](http://playground.ebiene.de "Playground Blog")
 * [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
-* [Twitter](http://twitter.com/wpSEO "wpSEO on Twitter")
+* [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Portfolio](http://ebiene.de "Portfolio")
 * [Andere Plugins](http://wpcoder.de "Andere Plugins")
 
