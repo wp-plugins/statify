@@ -1,8 +1,8 @@
 === Statify ===
-Contributors: stalkerX
+Contributors: sergej.mueller
 Tags: stats, analytics, privacy
 Requires at least: 3.0
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: trunk
 
 Statify - Datenschutz-konformes Statistik-Plugin für WordPress.
