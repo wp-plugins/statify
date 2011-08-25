@@ -1,11 +1,9 @@
 <?php
 /*
 Plugin Name: Statify
-Text Domain: statify
-Domain Path: /lang
-Description: Kompakte, verständliche und datenschutzkonforme Statistik für WordPress.
+Description: Kompakte, begreifliche und datenschutzkonforme Statistik für WordPress.
 Author: Sergej M&uuml;ller
-Author URI: http://www.wpSEO.org
+Author URI: http://www.wpSEO.de
 Plugin URI: http://wpcoder.de
 Version: 0.7
 */
