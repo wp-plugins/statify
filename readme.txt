@@ -1,15 +1,16 @@
 === Statify ===
 Contributors: sergej.mueller
+Donate link: http://flattr.com/profile/sergej.mueller
 Tags: stats, analytics, privacy
 Requires at least: 3.0
 Tested up to: 3.3
 Stable tag: trunk
 
-Statify - Datenschutz-konformes Statistik-Plugin für WordPress.
+Statify - Datenschutz-konforme Statistik für WordPress-Blogs.
 
 
 == Description ==
-= Kompakt und anonym: Statify Stats =
+= Kompakt und anonym: Statify Statistiken =
 *Statify* konzentriert sich aufs Wesentliche: Auf dem Dashboard präsentiert das Plugin den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms, gefolgt von jeweils einer Liste mit häufigsten Verweisen und meist aufgerufenen Zielseiten innerhalb des Blogs. Der Aufbewahrungs- bzw. Anzeige-Zeitraum sowie die Länge der Listen lassen sich nach Wünschen des WordPress-Nutzers direkt im Widget anpassen.
 
 Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.com Stats verarbeitet, speichert und überträgt *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen der Besucher. Transparente Arbeitsweise: Eine lokal angelegte Datenbanktabelle besteht aus 4 Feldern: ID, Datum, Quelle, Ziel.
@@ -17,18 +18,21 @@ Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.c
 Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und angemeldete Nutzer.
 
 Einsatzbereit auch auf WordPress Multisite Blogs.
-Weitere Details und Informationen in der [Dokumentation](http://playground.ebiene.de/2661/statify-wordpress-statistik/ "Statify - WordPress Statistiken").
+Weitere Details und Informationen in der [Dokumentation](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify - WordPress Statistiken").
 
 
 = Weiterführende Links =
-* [Blog](http://playground.ebiene.de "Playground Blog")
-* [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Portfolio](http://ebiene.de "Portfolio")
-* [Andere Plugins](http://wpcoder.de "Andere Plugins")
 
 
 == Changelog ==
+= 0.8 =
+* Unterstützung für WordPress 3.3
+* Anzeige des Dashboard-Widgets auch für Autoren
+* Direkter Link zu den Einstellungen auf dem Dashboard
+* Filterung der Ziele/Referrer auf den aktuellen Tag
+
 = 0.7 =
 * Umsortierung der Statistiktage
 * Umfärbung der Statistikmarkierung
@@ -55,6 +59,6 @@ Weitere Details und Informationen in der [Dokumentation](http://playground.ebien
 
 == Installation ==
 1. *Statify* installieren
-1. [Dokumentation](http://playground.ebiene.de/2661/statify-wordpress-statistik/ "Statify - WordPress Statistiken") beachten
+1. [Dokumentation](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify - WordPress Statistiken") beachten
 1. Dashboard aufrufen
 1. Einstellungen im *Statify* Widget über *Konfigurieren* vornehmen

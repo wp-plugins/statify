@@ -3,9 +3,9 @@
 Plugin Name: Statify
 Description: Kompakte, begreifliche und datenschutzkonforme Statistik für WordPress.
 Author: Sergej M&uuml;ller
-Author URI: http://www.wpSEO.de
-Plugin URI: http://wpcoder.de
-Version: 0.7
+Author URI: http://wpseo.de
+Plugin URI: http://playground.ebiene.de/statify-wordpress-statistik/
+Version: 0.8
 */
 
 
@@ -18,8 +18,9 @@ class Statify
 {
 private static $base;
 private static $stats;
-private static $limit = 3;
 private static $days = 14;
+private static $limit = 3;
+private static $today = 0;
 public static function init()
 {
 if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) or (defined('DOING_CRON') && DOING_CRON) or (defined('DOING_AJAX') && DOING_AJAX) or (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) {
@@ -58,6 +59,13 @@ __CLASS__,
 10,
 2
 );
+add_filter(
+'plugin_action_links_' .self::$base,
+array(
+__CLASS__,
+'init_action'
+)
+);
 } else {
 add_action(
 'template_redirect',
@@ -68,13 +76,35 @@ __CLASS__,
 );
 }
 }
+public static function init_action($data)
+{
+if ( !current_user_can('manage_options') ) {
+return $data;
+}
+return array_merge(
+$data,
+array(
+sprintf(
+'<a href="%s">%s</a>',
+add_query_arg(
+array(
+'edit' => 'statify_dashboard#statify_dashboard'
+),
+admin_url('/')
+),
+__('Settings')
+)
+)
+);
+}
 public static function init_meta($links, $file)
 {
 if ( self::$base == $file ) {
 return array_merge(
 $links,
 array(
-'<a href="http://flattr.com/thing/148966/Statify-Plugin-fur-Datenschutz-konforme-Statistik-in-WordPress" target="_blank">Plugin flattern</a>'
+'<a href="http://flattr.com/thing/148966/Statify-Plugin-fur-Datenschutz-konforme-Statistik-in-WordPress" target="_blank">Plugin flattern</a>',
+'<a href="https://plus.google.com/110569673423509816572" target="_blank">Auf Google+ folgen</a>'
 )
 );
 }
@@ -82,7 +112,7 @@ return $links;
 }
 public static function init_dashboard()
 {
-if ( !current_user_can('administrator') ) {
+if ( !current_user_can('level_2') ) {
 return;
 }
 self::_prepare_stats();
@@ -99,14 +129,14 @@ __CLASS__,
 )
 );
 add_action(
-'admin_head',
+'admin_print_styles',
 array(
 __CLASS__,
 'add_style'
 )
 );
 add_action(
-'wp_print_scripts',
+'admin_print_scripts',
 array(
 __CLASS__,
 'add_js'
@@ -122,7 +152,7 @@ plugins_url('/css/dashboard.css', __FILE__),
 array(),
 $plugin['Version']
 );
-wp_print_styles('statify');
+wp_enqueue_style('statify');
 }
 public static function add_js() {
 if ( (!$stats = self::$stats) or empty($stats['visits']) ) {
@@ -157,7 +187,8 @@ $options = wp_parse_args(
 get_option('statify'),
 array(
 'days'=> self::$days,
-'limit'=> self::$limit
+'limit'=> self::$limit,
+'today' => self::$today
 )
 );
 wp_cache_set(
@@ -220,16 +251,17 @@ Keine
 <?php }
 public static function back_view()
 {
-if ( !empty($_POST['statify']) ) {
-if (!current_user_can('edit_plugins')) {
-wp_die(__('Cheatin&#8217; uh?'));
+if ( !current_user_can('manage_options') ) {
+return;
 }
+if ( !empty($_POST['statify']) ) {
 check_admin_referer('_statify');
 update_option(
 'statify',
 array(
 'days'=> (int)@$_POST['statify']['days'],
-'limit'=> (int)@$_POST['statify']['limit']
+'limit'=> (int)@$_POST['statify']['limit'],
+'today'=> (int)@$_POST['statify']['today']
 )
 );
 delete_transient('statify');
@@ -255,6 +287,12 @@ wp_nonce_field('_statify'); ?>
 <?php } ?>
 </select>
 <label for="statify_limit">Anzahl der Einträge in Listen</label>
+</td>
+</tr>
+<tr>
+<td>
+<input type="checkbox" name="statify[today]" id="statify_today" value="1" <?php checked($options['today'], 1) ?> />
+<label for="statify_today">Referrer und Ziele nur vom aktuellen Tag zeigen</label>
 </td>
 </tr>
 </table>
@@ -314,7 +352,6 @@ self::_uninstall_backend();
 }
 }
 public static function uninstall_later($id) {
-global $wpdb;
 if ( !is_plugin_active_for_network(self::$base) ) {
 return;
 }
@@ -412,15 +449,21 @@ ARRAY_A
 ),
 'target' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
+sprintf(
+"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` %s GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
+( $options['today'] ? 'WHERE created = DATE(NOW())' : '' ),
 $options['limit']
+)
 ),
 ARRAY_A
 ),
 'referrer' => $wpdb->get_results(
 $wpdb->prepare(
-"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
+sprintf(
+"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' %s GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
+( $options['today'] ? 'AND created = DATE(NOW())' : '' ),
 $options['limit']
+)
 ),
 ARRAY_A
 )
