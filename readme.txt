@@ -1,32 +1,40 @@
 === Statify ===
 Contributors: sergej.mueller
-Donate link: http://flattr.com/profile/sergej.mueller
 Tags: stats, analytics, privacy
+Donate link: http://flattr.com/profile/sergej.mueller
 Requires at least: 3.0
 Tested up to: 3.3
 Stable tag: trunk
 
-Statify - Datenschutz-konforme Statistik für WordPress-Blogs.
+
+
+Statistik mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichkeit. Ideal für das Admin-Dashboard.
+
 
 
 == Description ==
-= Kompakt und anonym: Statify Statistiken =
-*Statify* konzentriert sich aufs Wesentliche: Auf dem Dashboard präsentiert das Plugin den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms, gefolgt von jeweils einer Liste mit häufigsten Verweisen und meist aufgerufenen Zielseiten innerhalb des Blogs. Der Aufbewahrungs- bzw. Anzeige-Zeitraum sowie die Länge der Listen lassen sich nach Wünschen des WordPress-Nutzers direkt im Widget anpassen.
 
-Im Vergleich zu anderen Statistik-Diensten wie Google Analytics oder WordPress.com Stats verarbeitet, speichert und überträgt *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen der Besucher. Transparente Arbeitsweise: Eine lokal angelegte Datenbanktabelle besteht aus 4 Feldern: ID, Datum, Quelle, Ziel.
+= Kompakt und anonym =
+Weniger ist mehr: Auf dem Dashboard präsentiert das Plugin den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms. Dem folgt jeweils eine Liste mit den häufigsten Verweisquellen und den meist aufgerufenen Zielseiten im Blog. Der Aufbewahrungs- bzw. Anzeige-Zeitraum sowie die Länge der Listen lassen sich direkt im Dashboard Widget konfigurieren.
 
-Die technische Seite des *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe jeder Blogseite mit, ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und angemeldete Nutzer.
+Im direkten Vergleich zu den anderen Statistik-Diensten wie *Google Analytics* oder *WordPress.com Stats* verarbeitet, speichert und überträgt *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen. Transparente Arbeitsweise: Eine lokal angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit angesehen, bereinigt und geleert werden.
 
-Einsatzbereit auch auf WordPress Multisite Blogs.
-Weitere Details und Informationen in der [Dokumentation](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify - WordPress Statistiken").
+*Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe der Blogseiten mit - ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer.
 
+= Dokumentation =
+[Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify: Statistik für WordPress")
 
-= Weiterführende Links =
+= Autor =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Portfolio](http://ebiene.de "Portfolio")
 
 
+
 == Changelog ==
+
+= 0.9 =
+* Xmas Edition
+
 = 0.8 =
 * Unterstützung für WordPress 3.3
 * Anzeige des Dashboard-Widgets auch für Autoren
@@ -51,14 +59,8 @@ Weitere Details und Informationen in der [Dokumentation](http://playground.ebien
 * Statify geht online
 
 
+
 == Screenshots ==
 
 1. Statify Dashboard Widget
 2. Statify Dashboard Widget Optionen
-
-
-== Installation ==
-1. *Statify* installieren
-1. [Dokumentation](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify - WordPress Statistiken") beachten
-1. Dashboard aufrufen
-1. Einstellungen im *Statify* Widget über *Konfigurieren* vornehmen

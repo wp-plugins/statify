@@ -5,7 +5,7 @@ Description: Kompakte, begreifliche und datenschutzkonforme Statistik für WordP
 Author: Sergej M&uuml;ller
 Author URI: http://wpseo.de
 Plugin URI: http://playground.ebiene.de/statify-wordpress-statistik/
-Version: 0.8
+Version: 0.9
 */
 
 
