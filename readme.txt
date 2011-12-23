@@ -22,7 +22,7 @@ Im direkten Vergleich zu den anderen Statistik-Diensten wie *Google Analytics* o
 *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe der Blogseiten mit - ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer.
 
 = Dokumentation =
-[Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify: Statistik für WordPress")
+* [Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify: Statistik für WordPress")
 
 = Autor =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
