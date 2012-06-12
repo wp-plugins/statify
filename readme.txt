@@ -42,6 +42,7 @@ Im direkten Vergleich zu den anderen Statistik-Diensten wie *Google Analytics* o
 = 1.0 =
 * WordPress 3.4 Support
 * [Offizielle Plugin-Website](http://statify.de "Statify WordPress Stats")
+* Unkomprimierte Version des Source Codes
 
 = 0.9 =
 * Xmas Edition
