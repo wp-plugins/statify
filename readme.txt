@@ -1,9 +1,9 @@
 === Statify ===
 Contributors: sergej.mueller
 Tags: stats, analytics, privacy
-Donate link: http://flattr.com/profile/sergej.mueller
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
 Requires at least: 3.0
-Tested up to: 3.3
+Tested up to: 3.4
 Stable tag: trunk
 
 
@@ -21,16 +21,27 @@ Im direkten Vergleich zu den anderen Statistik-Diensten wie *Google Analytics* o
 
 *Statify* erfordert keinen Einsatz von Cookies, Pixelgrafiken, JavaScript oder Flash. Das Statistik-Plugin schreibt Aufrufe der Blogseiten mit - ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer.
 
+= Systemanforderungen =
+* PHP ab 5.0
+* WordPress ab 3.0
+* MySQL ab 5.2
+
 = Dokumentation =
+* [Offizielle Homepage](http://statify.de "Statify WordPress Statistiken")
 * [Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/ "Statify: Statistik für WordPress")
 
 = Autor =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
+* [Plugins](http://wpcoder.de "Plugins")
 * [Portfolio](http://ebiene.de "Portfolio")
 
 
 
 == Changelog ==
+
+= 1.0 =
+* WordPress 3.4 Support
+* [Offizielle Plugin-Website](http://statify.de "Statify WordPress Stats")
 
 = 0.9 =
 * Xmas Edition
