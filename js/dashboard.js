@@ -1,3 +1,65 @@
-google.load("visualization","1",{packages:["corechart"]});google.setOnLoadCallback(drawChart);
-function drawChart(){var a,c=[],d=document.getElementById("statify_chart"),b=new google.visualization.DataTable;if(d&&statify.created.length){var e=statify.created.split(","),f=statify.count.split(",");for(a in e)c[a]=[e[a],parseInt(f[a],10)];b.addColumn("string","Datum");b.addColumn("number","Aufrufe");b.addRows(c);(new google.visualization.AreaChart(d)).draw(b,{width:parseInt(jQuery("#statify_chart").parent().width(),10),height:120,legend:"none",pointSize:6,lineWidth:3,gridlineColor:"#ececec",colors:["#3399CC"],
-reverseCategories:!0,backgroundColor:"transparent",vAxis:{baselineColor:"transparent",textPosition:"in",textStyle:{color:"#8F8F8F",fontSize:10}},hAxis:{textStyle:{color:"#3399CC",fontSize:10}},chartArea:{width:"100%",height:"100%"}})}};
+google.load(
+	'visualization',
+	1,
+	{
+		packages: ['corechart']
+	}
+);
+
+
+google.setOnLoadCallback(
+	function() {
+		/* Init */
+		var id,
+			rows = [],
+			chart = {},
+			output = jQuery('#statify_chart'),
+			data = new google.visualization.DataTable();
+		
+		/* Leer? */
+		if ( !statify ) {
+			return;
+		}
+
+		/* Loopen */
+		for (id in statify) {
+			rows[id] = [statify[id].date, parseInt(statify[id].count)];
+		}
+		
+		/* Spalten */
+		data.addColumn('string', 'Datum');
+		data.addColumn('number', 'Aufrufe');
+		data.addRows(rows);
+		
+		/* Chart */
+		chart = new google.visualization.AreaChart(output.get(0));
+	  	
+	  	/* Zeichnen */
+	  	chart.draw(
+	  		data,
+	  		{
+				'width': output.parent().width(),
+				'height': 120,
+				'legend': 'none',
+				'colors': ['#3399CC'],
+				'pointSize': 6,
+				'lineWidth': 3,
+				'gridlineColor': '#ececec',
+				'backgroundColor': 'transparent',
+				'reverseCategories': true,
+				'vAxis': {
+					'textPosition': 'in',
+					'baselineColor': 'transparent',
+					'textStyle': {
+						'color': '#8F8F8F',
+						'fontSize': 10
+					}
+				},
+				'chartArea': {
+					'width': "100%",
+					'height': "100%"
+				}
+			}
+		);
+	}
+);

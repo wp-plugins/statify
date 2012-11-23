@@ -1,1 +1,86 @@
-#statify_chart{height:120px}#statify_dashboard .table{margin:10px 0 0;position:relative}#statify_dashboard .table p.sub{color:#8f8f8f;margin:8px 0;position:absolute;font-size:14px}#statify_dashboard .table div{margin:33px 0 0;overflow:hidden;border-top:1px solid #ececec}#statify_dashboard .table.referrer{float:left;width:35%}#statify_dashboard .table.target{float:right;width:55%}#statify_dashboard .inside{height:1%;margin:10px 0;overflow:hidden;position:relative}#statify_dashboard td.b{font:normal 18px Georgia,"Times New Roman","Bitstream Charter",Times,serif;text-align:right;padding-right:6px}#statify_dashboard table td{padding:1px 0;white-space:nowrap}#statify_dashboard table tr.first td{border-top:0}#statify_dashboard td.first,#statify_dashboard td.last{width:1px}#statify_dashboard .t{color:#777;font-size:12px;padding-top:6px;padding-right:12px}#statify_dashboard td.b a{font-size:18px}#statify_dashboard tr.first td{border:0}#statify_dashboard .form-table{margin:0 0 .5em}
+/* @group Frontend */
+
+#statify_chart {
+	height: 120px;
+}
+
+#statify_dashboard .table {
+	margin: 10px 0 0;
+	position: relative;
+}
+#statify_dashboard .table p.sub {
+	color: #8F8F8F;
+	margin: 8px 0;
+  	position: absolute;
+  	font-size: 14px;
+}
+#statify_dashboard .table div {
+	margin: 31px 0 0;
+	overflow: hidden;
+	border-top: 1px solid #ececec;
+}
+
+#statify_dashboard .table.referrer {
+	float: left;
+	width: 35%;
+}
+#statify_dashboard .table.target {
+	float: right;
+	width: 55%;
+}
+#statify_dashboard .inside {
+	height: 1%;
+	margin: 10px 0;
+	overflow: hidden;
+	position: relative;
+}
+
+#statify_dashboard td.b {
+	font: normal 18px Georgia, "Times New Roman", "Bitstream Charter", Times, serif;
+	text-align: right;
+	padding-right: 6px;
+}
+#statify_dashboard table td {
+	padding: 2px 0;
+	white-space: nowrap;
+}
+#statify_dashboard table tr.first td {
+	border-top: none;
+}
+#statify_dashboard td.first,
+#statify_dashboard td.last {
+	width: 1px;
+}
+#statify_dashboard .t {
+	color: #777;
+	font-size: 12px;
+	padding-top: 6px;
+	padding-right: 12px;
+}
+#statify_dashboard td.b a {
+	font-size: 18px;
+}
+#statify_dashboard tr.first td {
+	border: none;
+}
+
+#statify_dashboard .form-table td {
+	padding: 0 0 8px;
+}
+#statify_dashboard .meta-links {
+	float: right;
+	height: 24px;
+	margin-top: 6px;
+	line-height: 24px;
+}
+#statify_dashboard .meta-links a:before {
+	margin: 0 4px;
+	content: '|';
+	display: inline-block;
+}
+#statify_dashboard .meta-links a:first-child:before {
+	margin: 0;
+	content: '';
+}
+
+/* @end group */
