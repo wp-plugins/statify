@@ -373,21 +373,15 @@ class Statify_Dashboard
 			),
 			'target' => $wpdb->get_results(
 				$wpdb->prepare(
-					sprintf(
-						"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` %s GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
-						( $options['today'] ? 'WHERE created = DATE(NOW())' : '' ),
-						$options['limit']
-					)
+					"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` " .( $options['today'] ? 'WHERE created = DATE(NOW())' : '' ). " GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
+					(int)$options['limit']
 				),
 				ARRAY_A
 			),
 			'referrer' => $wpdb->get_results(
 				$wpdb->prepare(
-					sprintf(
-						"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' %s GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
-						( $options['today'] ? 'AND created = DATE(NOW())' : '' ),
-						$options['limit']
-					)
+					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' " .( $options['today'] ? 'AND created = DATE(NOW())' : '' ). " GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
+					(int)$options['limit']
 				),
 				ARRAY_A
 			)
