@@ -14,7 +14,7 @@ Besucherstatistik mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichk
 
 == Description ==
 
-Statify verfolgt ein simples Ziel: Live-Zugriffszahlen des Blogs blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack.
+*Statify* verfolgt ein simples Ziel: Live-Zugriffszahlen des Blogs blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack.
 
 = Dashboard-Widget =
 Weniger ist mehr: Das Statistik-Plugin präsentiert auf dem Admin-Dashboard den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms. Der Zeitskala folgt jeweils eine Liste mit den häufigsten Verweisquellen (Referrer) und den meist aufgerufenen Zielseiten im Blog. Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
@@ -29,7 +29,7 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Weitere Details zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
 = Statify Chrome App =
-Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für den aktuellen Chrome-Browser entwickelt: Statify-Statistiken aus Blogs lassen sich an einer Stelle gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Alle Werte aus allen verknüpften Blogs in nur einem Fenster. Die Statify Chrome App ist im [Chrome Web Store](https://chrome.google.com/webstore/detail/statify/pdiohkgbahoanfipbfkbegpaohcokfjh) zu beziehen.
+Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für den aktuellen Chrome-Browser entwickelt: *Statify* Statistiken aus Blogs lassen sich an einer Stelle gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem (Browser-)Fenster. Die *Statify Chrome App* ist im [Chrome Web Store](https://chrome.google.com/webstore/detail/statify/pdiohkgbahoanfipbfkbegpaohcokfjh) verfügbar.
 
 
 = Unterstützung =
