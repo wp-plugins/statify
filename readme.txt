@@ -28,9 +28,6 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 = Filter =
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Weitere Details zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
-= Statify Chrome App =
-Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für den aktuellen Chrome-Browser entwickelt: *Statify* Statistiken aus Blogs lassen sich an einer Stelle gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem (Browser-)Fenster. Die *Statify Chrome App* ist im [Chrome Web Store](https://chrome.google.com/webstore/detail/statify/pdiohkgbahoanfipbfkbegpaohcokfjh) verfügbar.
-
 
 = Unterstützung =
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
@@ -54,7 +51,6 @@ Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine
 = 1.1 =
 * Refactoring der Code-Basis
 * Optionales Tracking via JavaScript für Caching-Plugins
-* [Statify Chrome App](https://chrome.google.com/webstore/detail/statify/pdiohkgbahoanfipbfkbegpaohcokfjh)
 * WordPress 3.5 Support
 * Überarbeitung der Online-Doku
 
