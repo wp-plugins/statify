@@ -17,16 +17,17 @@ class Statify_XMLRPC
 	* @since   1.1
 	* @change  1.1
 	*
-	* @return  array  Array mit Plugin-Callback
+	* @return  array  $methods  Array ohne Plugin-Callback
+	* @return  array  $methods  Array mit Plugin-Callback
 	*/
 	
-	public static function xmlrpc_methods() {
-		return array(
-			'statify.getStats' => array(
-				__CLASS__,
-				'xmlrpc_callback'
-			)
+	public static function xmlrpc_methods($methods) {
+		$methods['statify.getStats'] = array(
+			__CLASS__,
+			'xmlrpc_callback'
 		);
+		
+		return $methods;
 	}
 	
 	
