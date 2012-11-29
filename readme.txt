@@ -26,7 +26,7 @@ Im unmittelbaren Vergleich zu Statistik-Diensten wie *Google Analytics* oder *Wo
 Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
 
 = Filter =
-*Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Weitere Details zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
+*Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
 = Statify Chrome App =
 Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für aktuellen Chrome entwickelt: *Statify* Blog-Statistiken lassen sich an einer Stelle gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem (Browser-)Fenster. [Weitere Details](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
