@@ -202,7 +202,7 @@ class Statify_Dashboard
 	* Ausgabe der Backseite
 	*
 	* @since   0.4
-	* @change  1.1
+	* @change  1.2
 	*/
 
 	public static function print_backview()
@@ -278,7 +278,7 @@ class Statify_Dashboard
 		</table>
 		
 		<p class="meta-links">
-			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Dokumentation</a><a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Dokumentation</a><a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a><a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 		</p>
 	<?php }
 

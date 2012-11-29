@@ -28,6 +28,8 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 = Filter =
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Weitere Details zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
+= Statify Chrome App =
+Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für aktuellen Chrome entwickelt: *Statify* Blog-Statistiken lassen sich an einer Stelle gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem (Browser-)Fenster. [Weitere Details](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
 
 = Unterstützung =
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
@@ -48,11 +50,16 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 
 == Changelog ==
 
+= 1.2 =
+* Speziell für Chrome-Browser entwickelte [Statify App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
+* Fix für eingeführte XML-RPC-Schnittstelle
+
 = 1.1 =
-* Refactoring der Code-Basis
-* Optionales Tracking via JavaScript für Caching-Plugins
 * WordPress 3.5 Support
-* Überarbeitung der Online-Doku
+* Schnittstelle via XML-RPC
+* Refactoring der Code-Basis
+* Überarbeitung der Online-Dokumentation
+* Optionales Tracking via JavaScript für Caching-Plugins
 
 = 1.0 =
 * WordPress 3.4 Support
