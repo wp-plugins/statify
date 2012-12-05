@@ -202,7 +202,7 @@ class Statify_Dashboard
 	* Ausgabe der Backseite
 	*
 	* @since   0.4
-	* @change  1.2
+	* @change  1.2.1
 	*/
 
 	public static function print_backview()
@@ -235,6 +235,17 @@ class Statify_Dashboard
 				do_action('cachify_flush_cache');
 			}
 		}
+		
+		/* Zeiträume */
+		$dmatrix = array(
+			7 => '1 Woche',
+			14 => '2 Wochen',
+			21 => '3 Wochen',
+			30 => '1 Monat',
+			90 => '3 Monate',
+			180 => '6 Monate',
+			365 => '1 Jahr'
+		);
 
 		/* Optionen */
 		$options = Statify::get_options();
@@ -246,18 +257,18 @@ class Statify_Dashboard
 			<tr>
 				<td>
 					<select name="statify[days]" id="statify_days">
-						<?php foreach( array(7, 10, 14, 20, 21, 28, 30) as $num ) { ?>
-							<option <?php selected($options['days'], $num); ?>><?php echo $num; ?></option>
+						<?php foreach( $dmatrix as $days => $string ) { ?>
+							<option value="<?php echo $days ?>" <?php selected($options['days'], $days); ?>><?php echo $string ?></option>
 						<?php } ?>
 					</select>
-					<label for="statify_days">Anzahl der Tage für Statistiken</label>
+					<label for="statify_days">Zeitraum für Statistiken</label>
 				</td>
 			</tr>
 			<tr>
 				<td>
 					<select name="statify[limit]" id="statify_limit">
 						<?php foreach( range(0, 12) as $num ) { ?>
-							<option <?php selected($options['limit'], $num); ?>><?php echo $num; ?></option>
+							<option <?php selected($options['limit'], $num) ?>><?php echo $num ?></option>
 						<?php } ?>
 					</select>
 					<label for="statify_limit">Anzahl der Einträge in Listen</label>
