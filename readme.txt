@@ -22,7 +22,7 @@ Weniger ist mehr: Das Statistik-Plugin präsentiert auf dem Admin-Dashboard den 
 = Datenschutz =
 Im unmittelbaren Vergleich zu Statistik-Diensten wie *Google Analytics* oder *WordPress.com Stats* verarbeitet und speichert *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen. Absolute Datenschutzkonformität gepaart mit transparenter Arbeitsweise: Eine lokal in WordPress angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit eingesehen, bereinigt oder geleert werden.
 
-= Caching =
+= Caching-Plugins =
 Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
 
 = Filter =
@@ -36,8 +36,8 @@ Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine
 * Per [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6)
 
 = Systemanforderungen =
-* PHP 5.1.2
-* WordPress ab 3.0
+* PHP 5.2.4
+* WordPress ab 3.4
 
 = Dokumentation =
 * [Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/)
@@ -49,6 +49,10 @@ Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine
 
 
 == Changelog ==
+
+= 1.2.1 =
+* Zusätzliche Zeiträume (bis zu einem Jahr) für Statistik
+* WordPress 3.4 als Systemanforderung
 
 = 1.2 =
 * Speziell für Chrome-Browser entwickelte [Statify App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
