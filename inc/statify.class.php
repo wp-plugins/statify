@@ -147,7 +147,7 @@ class Statify
 			$input,
 			array(
 				'<a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a>',
-				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
+				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
 			)
 		);
 	}
