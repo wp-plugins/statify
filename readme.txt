@@ -29,7 +29,7 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
 = Statify Chrome App =
-Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: *Statify*-Statistiken lassen sich an einer Stelle im Browser gesammelt darstellen. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem Fenster. Weitere Details zu [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app).
+Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app) - *Statify*-Statistiken an einer Stelle im Browser gesammelt dargestellt. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem Fenster.
 
 = Systemanforderungen =
 * PHP 5.2.4
