@@ -9,8 +9,8 @@
 
 class Statify_Dashboard
 {
-	
-	
+
+
 	/**
 	* Anzeige des Dashboard-Widgets
 	*
@@ -24,7 +24,7 @@ class Statify_Dashboard
 		if ( !current_user_can('level_2') ) {
 			return;
 		}
-		
+
 		/* Version definieren */
 		self::_define_version();
 
@@ -60,8 +60,8 @@ class Statify_Dashboard
 			)
 		);
 	}
-	
-	
+
+
 	/**
 	* Ausgabe der Stylesheets
 	*
@@ -96,12 +96,12 @@ class Statify_Dashboard
 		if ( ! $data = self::get_stats() ) {
 			return;
 		}
-		
+
 		/* Edit-Modus? */
 		if ( isset($_GET['edit']) && $_GET['edit'] === 'statify_dashboard' ) {
 			return;
 		}
-		
+
 		/* Registrieren */
 		wp_register_script(
 			'statify',
@@ -126,8 +126,8 @@ class Statify_Dashboard
 			$data['visits']
 		);
 	}
-	
-	
+
+
 	/**
 	* Ausgabe der Frontseite
 	*
@@ -142,10 +142,10 @@ class Statify_Dashboard
 			<div id="statify_chart">
 				<noscript>Zur Darstellung der Statistik wird JavaScript benötigt.</noscript>
 			</div>
-			
+
 			<div class="table target">
 				<p class="sub">Top Inhalte</p>
-				
+
 				<div>
 					<table>
 						<?php if ( $data['target'] ) { ?>
@@ -167,10 +167,10 @@ class Statify_Dashboard
 					</table>
 				</div>
 			</div>
-			
+
 			<div class="table referrer">
 				<p class="sub">Top Referrer</p>
-				
+
 				<div>
 					<table>
 						<?php if ( $data['referrer'] ) { ?>
@@ -211,7 +211,7 @@ class Statify_Dashboard
 		if ( !current_user_can('manage_options') ) {
 			return;
 		}
-		
+
 		/* Speichern */
 		if ( !empty($_POST['statify']) ) {
 			/* Formular-Referer */
@@ -229,13 +229,13 @@ class Statify_Dashboard
 
 			/* Internen Cache Leeren */
 			delete_transient('statify');
-			
+
 			/* Cachify Cache leeren */
 			if ( has_action('cachify_flush_cache') ) {
 				do_action('cachify_flush_cache');
 			}
 		}
-		
+
 		/* Zeiträume */
 		$dmatrix = array(
 			7 => '1 Woche',
@@ -287,9 +287,9 @@ class Statify_Dashboard
 				</td>
 			</tr>
 		</table>
-		
+
 		<p class="meta-links">
-			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Dokumentation</a><a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a><a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a><a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a><a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 		</p>
 	<?php }
 
@@ -302,31 +302,31 @@ class Statify_Dashboard
 	*
 	* @return  array  $data  Array mit Statistiken
 	*/
-	
+
 	public static function get_stats()
 	{
 		/* Auf Cache zugreifen */
 		if ( $data = get_transient('statify') ) {
 			return $data;
 		}
-		
+
 		/* DB reinigen */
 		self::_clean_data();
-		
+
 		/* Stats abrufen */
 		$data = self::_prepare_stats();
-		
+
 		/* Merken */
 		set_transient(
 		   'statify',
 		   $data,
 		   60 * 4 // = 4 Minuten
 		);
-		
+
 		return $data;
 	}
-	
-	
+
+
 	/**
 	* Liest Daten aus der DB aus und bereitet diese vor
 	*
@@ -335,28 +335,28 @@ class Statify_Dashboard
 	*
 	* @return  array  $data  Array mit ausgelesenen Daten
 	*/
-	
+
 	public static function _prepare_stats()
 	{
 		/* Nix in der DB? */
 		if ( ! $data = self::_select_data() ) {
 			return false;
 		}
-		
+
 		/* Noch keine Daten? */
 		if ( empty($data['visits']) ) {
 			return false;
 		}
-		
+
 		/* Heute? */
 		if ( $data['visits'][0]['date'] == date('d.m', current_time('timestamp')) ) {
 			$data['visits'][0]['date'] = 'Heute';
 		}
-		
+
 		return $data;
 	}
-	
-	
+
+
 	/**
 	* Statistiken aus der DB
 	*
@@ -373,7 +373,7 @@ class Statify_Dashboard
 
 		/* Optionen */
 		$options = Statify::get_options();
-		
+
 		return array(
 			'visits' => $wpdb->get_results(
 				$wpdb->prepare(
@@ -398,8 +398,8 @@ class Statify_Dashboard
 			)
 		);
 	}
-	
-	
+
+
 	/**
 	* Bereinigung der veralteten Werte in der DB
 	*
@@ -413,7 +413,7 @@ class Statify_Dashboard
 	    if ( get_transient('statify_cron') ) {
 	    	return;
 	    }
-	
+
 	    /* Global */
 	    global $wpdb;
 
@@ -437,20 +437,20 @@ class Statify_Dashboard
 			60 * 60 * 12
 		);
 	}
-	
-	
+
+
 	/**
 	* Plugin-Version als Konstante
 	*
 	* @since   1.1
 	* @change  1.1
 	*/
-	
+
 	private static function _define_version()
 	{
 		/* Auslesen */
 		$meta = get_plugin_data(STATIFY_FILE);
-		
+
 		/* Zuweisen */
 		define('STATIFY_VERSION', $meta['Version']);
 	}
