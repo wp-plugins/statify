@@ -16,34 +16,44 @@ Besucherstatistik mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichk
 
 *Statify* verfolgt ein simples Ziel: Live-Zugriffszahlen des Blogs blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack.
 
+
 = Dashboard-Widget =
 Weniger ist mehr: Das Statistik-Plugin präsentiert auf dem Admin-Dashboard den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms. Der Zeitskala folgt jeweils eine Liste mit den häufigsten Verweisquellen (Referrer) und den meist aufgerufenen Zielseiten im Blog. Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
+
 
 = Datenschutz =
 Im unmittelbaren Vergleich zu Statistik-Diensten wie *Google Analytics* oder *WordPress.com Stats* verarbeitet und speichert *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen. Absolute Datenschutzkonformität gepaart mit transparenter Arbeitsweise: Eine lokal in WordPress angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit eingesehen, bereinigt, geleert werden.
 
+
 = Caching-Plugins =
 Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
+
 
 = Filter =
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
-= Statify Chrome App =
-Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app) - *Statify*-Statistiken an einer Stelle im Browser gesammelt dargestellt. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem Fenster.
+
+> #### Statify Chrome App
+> Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app) - *Statify*-Statistiken an einer Stelle im Browser gesammelt dargestellt. Ab sofort kein lästiges Aufrufen der einzelnen Admin-Dashboards mehr. Statistikberichte verknüpfter Blogs in nur einem Fenster.
+
 
 = Systemanforderungen =
 * PHP 5.2.4
 * WordPress ab 3.4
 
+
 = Unterstützung =
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
 * Per [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6)
 
-= Dokumentation =
+
+= Handbuch =
 * [Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/)
 
-= Homepage =
+
+= Website =
 * [statify.de](http://statify.de)
+
 
 = Autor =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
