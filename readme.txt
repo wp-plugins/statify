@@ -37,6 +37,10 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 > Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app) - *Statify*-Statistiken an einer Stelle im Browser gesammelt dargestellt. Ab sofort kein lästiges Aufrufen der einzelnen Dashboards mehr. Statistikberichte verknüpfter Blogs in einem Fenster.
 
 
+= Support =
+Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
+
+
 = Systemanforderungen =
 * PHP 5.2.4
 * WordPress ab 3.4
