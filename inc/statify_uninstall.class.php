@@ -24,23 +24,23 @@ class Statify_Uninstall
 	{
 		/* Global */
 		global $wpdb;
-		
+
 		/* Neuer MU-Blog */
 		if ( !empty($id) ) {
 			/* Im Netzwerk? */
 			if ( !is_plugin_active_for_network(STATIFY_BASE) ) {
 				return;
 			}
-	
+
 			/* Wechsel */
 			switch_to_blog( (int)$id );
-	
+
 			/* Installieren */
 			self::_apply();
-	
+
 			/* Wechsel zurück */
 			restore_current_blog();
-			
+
 			/* Raus */
 			return;
 		}
@@ -63,11 +63,11 @@ class Statify_Uninstall
 
 			/* Wechsel zurück */
 			switch_to_blog($old);
-			
+
 			/* Raus */
 			return;
 		}
-		
+
 		/* Single-Blog */
 		self::_apply();
 	}

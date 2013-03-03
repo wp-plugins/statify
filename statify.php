@@ -10,7 +10,7 @@ Version: 1.2.1
 
 
 /* Kein WP? */
-if ( !class_exists('WP') ) {
+if ( ! class_exists('WP') ) {
 	die();
 }
 

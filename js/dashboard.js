@@ -15,7 +15,7 @@ google.setOnLoadCallback(
 			chart = {},
 			output = jQuery('#statify_chart'),
 			data = new google.visualization.DataTable();
-		
+
 		/* Leer? */
 		if ( !statify ) {
 			return;
@@ -25,15 +25,15 @@ google.setOnLoadCallback(
 		for (id in statify) {
 			rows[id] = [statify[id].date, parseInt(statify[id].count)];
 		}
-		
+
 		/* Spalten */
 		data.addColumn('string', 'Datum');
 		data.addColumn('number', 'Aufrufe');
 		data.addRows(rows);
-		
+
 		/* Chart */
 		chart = new google.visualization.AreaChart(output.get(0));
-	  	
+
 	  	/* Zeichnen */
 	  	chart.draw(
 	  		data,

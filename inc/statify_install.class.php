@@ -9,8 +9,8 @@
 
 class Statify_Install
 {
-	
-	
+
+
 	/**
 	* Installation auch für MU-Blog
 	*
@@ -24,27 +24,27 @@ class Statify_Install
 	{
 		/* Global */
 		global $wpdb;
-		
+
 		/* Neuer MU-Blog */
 		if ( !empty($id) ) {
 			/* Im Netzwerk? */
 			if ( !is_plugin_active_for_network(STATIFY_BASE) ) {
 				return;
 			}
-	
+
 			/* Wechsel */
 			switch_to_blog( (int)$id );
-	
+
 			/* Installieren */
 			self::_apply();
-	
+
 			/* Wechsel zurück */
 			restore_current_blog();
-			
+
 			/* Raus */
 			return;
 		}
-		
+
 		/* Multisite & Network */
 		if ( is_multisite() && !empty($_GET['networkwide']) ) {
 			/* Blog-IDs */
@@ -60,16 +60,16 @@ class Statify_Install
 
 			/* Wechsel zurück */
 			restore_current_blog();
-			
+
 			/* Raus */
 			return;
 		}
-		
+
 		/* Single-Blog */
 		self::_apply();
 	}
-	
-	
+
+
 	/**
 	* Anlegen der Daten
 	*
