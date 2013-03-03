@@ -9,14 +9,14 @@
 
 class Statify
 {
-	
-	
+
+
 	/* Default */
 	private static $_days = 14;
 	private static $_limit = 3;
 	private static $_today = 0;
 	private static $_snippet = 0;
-	
+
 
 	/**
 	* Pseudo-Konstruktor der Klasse
@@ -24,13 +24,13 @@ class Statify
 	* @since   0.1
 	* @change  0.1
 	*/
-	
+
 	public static function instance()
 	{
 		new self();
 	}
-	
-	
+
+
 	/**
 	* Konstruktor der Klasse
 	*
@@ -44,10 +44,10 @@ class Statify
 		if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) or (defined('DOING_CRON') && DOING_CRON) or (defined('DOING_AJAX') && DOING_AJAX) ) {
 			return;
 		}
-		
+
 		/* Tabelle Init */
 		Statify_Table::init();
-		
+
 		/* XMLRPC */
 		if ( defined('XMLRPC_REQUEST') && XMLRPC_REQUEST ) {
 			add_filter(
@@ -57,7 +57,7 @@ class Statify
 					'xmlrpc_methods'
 				)
 			);
-			
+
 		/* BE */
 		} else if ( is_admin() ) {
 			add_action(
@@ -97,7 +97,7 @@ class Statify
 					'add_action_link'
 				)
 			);
-		
+
 		/* FE */
 		} else {
 			add_action(
@@ -123,8 +123,8 @@ class Statify
 			);
 		}
 	}
-	
-	
+
+
 	/**
 	* Hinzufügen der Meta-Links
 	*
@@ -142,7 +142,7 @@ class Statify
 		if ( $file !== STATIFY_BASE ) {
 			return $input;
 		}
-		
+
 		return array_merge(
 			$input,
 			array(
@@ -151,8 +151,8 @@ class Statify
 			)
 		);
 	}
-	
-	
+
+
 	/**
 	* Hinzufügen des Action-Links
 	*
@@ -166,7 +166,7 @@ class Statify
 		if ( !current_user_can('manage_options') ) {
 			return $input;
 		}
-		
+
 		/* Zusammenführen */
 		return array_merge(
 			$input,
@@ -184,8 +184,8 @@ class Statify
 			)
 		);
 	}
-	
-	
+
+
 	/**
 	* Speicherung der Plugin-Optionen
 	*
@@ -194,7 +194,7 @@ class Statify
 	*
 	* @param   array  $options  Array mit Optionen
 	*/
-	
+
 	public static function set_options($options)
 	{
 		/* In die DB */
@@ -202,15 +202,15 @@ class Statify
 			'statify',
 			$options
 		);
-		
+
 		/* Ins Cache */
 		wp_cache_set(
 			'statify',
 			$options
 		);
 	}
-	
-	
+
+
 	/**
 	* Rückgabe der Plugin-Optionen
 	*
@@ -246,8 +246,8 @@ class Statify
 
 		return $options;
 	}
-	
-	
+
+
 	/**
 	* Rückgabe einer bestimmten Plugin-Option
 	*
@@ -257,16 +257,16 @@ class Statify
 	* @param   string  $key  Array-Key für Optionen
 	* @return  mixed         Wert der angeforderten Option
 	*/
-	
+
 	public static function get_option($key)
 	{
 		/* Optionen */
 		$options = self::get_options();
-		
+
 		return ( empty($options[$key]) ? '' : $options[$key] );
 	}
-	
-	
+
+
 	/**
 	* Speicherung des Aufrufes in der DB
 	*
@@ -279,7 +279,7 @@ class Statify
 		/* JS-Snippet? */
 		$use_snippet = self::get_option('snippet');
 		$is_snippet = $use_snippet && get_query_var('statify_target');
-		
+
 		/* Snippet? */
 		if ( $is_snippet ) {
 			$target = urldecode( get_query_var('statify_target') );
@@ -290,22 +290,22 @@ class Statify
 		} else {
 			return;
 		}
-		
+
 		/* Kein Ziel? */
 		if ( empty($target) ) {
 			return self::_jump_out($is_snippet);
 		}
-		
+
 		/* Bot? */
 		if ( empty($_SERVER['HTTP_USER_AGENT']) or !preg_match('/(?:Windows|Macintosh|Linux)/', $_SERVER['HTTP_USER_AGENT']) ) {
 			return self::_jump_out($is_snippet);
 		}
-		
+
 		/* Filter */
 		if ( is_feed() or is_trackback() or is_robots() or is_preview() or is_user_logged_in() or is_404() ) {
 			return self::_jump_out($is_snippet);
 		}
-		
+
 		/* Global */
 		global $wpdb, $wp_rewrite;
 
@@ -326,12 +326,12 @@ class Statify
 
 		/* Ziel */
 		$data['target'] = str_replace( $home, '', home_url($target) );
-		
+
 		/* Parameter entfernen */
 		if ( $wp_rewrite->permalink_structure && !is_search() ) {
 			$data['target'] = preg_replace('/\?.*/', '', $data['target']);
 		}
-		
+
 		/* Absichern */
 		$data['target'] = esc_url_raw($data['target']);
 
@@ -340,12 +340,12 @@ class Statify
 			$wpdb->statify,
 			$data
 		);
-		
+
 		/* Beenden */
 		return self::_jump_out($is_snippet);
 	}
-	
-	
+
+
 	/**
 	* JavaScript-Header oder return
 	*
@@ -355,17 +355,19 @@ class Statify
 	* @param   boolean  $is_snippet  JavaScript-Snippte als Aufruf?
 	* @return  mixed                 Exit oder return je nach Snippet
 	*/
-	
+
 	private static function _jump_out($is_snippet) {
 		if ( $is_snippet ) {
+			header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
+			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 			header('Content-type: text/javascript');
 			exit;
 		}
-		
+
 		return false;
 	}
-	
-	
+
+
 	/**
 	* Deklariert GET-Variablen für die Weiternutzung
 	*
@@ -375,26 +377,26 @@ class Statify
 	* @param   array  $vars  Array mit existierenden Variablen
 	* @return  array  $vars  Array mit Plugin-Variablen
 	*/
-	
+
 	public static function query_vars($vars) {
 		$vars[] = 'statify_referrer';
 		$vars[] = 'statify_target';
-		
+
 		return $vars;
 	}
-	
-	
+
+
 	/**
 	* Ausgabe des JS-Snippets
 	*
 	* @since   1.1
 	* @change  1.1
 	*/
-	
+
 	public static function wp_footer()
 	{
 		if ( self::get_option('snippet') ) { ?>
-			
+
 			<!-- Tracking von http://statify.de -->
 			<script type="text/javascript">
 				(function() {
@@ -403,15 +405,15 @@ class Statify
 						r = encodeURIComponent(document.referrer),
 						t = encodeURIComponent(location.pathname),
 						p = '?statify_referrer=' + r + '&statify_target=' + t;
-			
+
 					e.async = true;
 					e.type = 'text/javascript';
 					e.src = '<?php echo home_url('/') ?>' + p;
-					
+
 					s.parentNode.insertBefore(e, s);
 				})();
 			</script>
-		
+
 		<?php }
 	}
 }
