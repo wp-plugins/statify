@@ -67,6 +67,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 1.2.2 =
+* No-Cache und No-Content Header für das optionale Zähl-JavaScript
+
 = 1.2.1 =
 * Zusätzliche Zeiträume (bis zu einem Jahr) für Statistik
 * WordPress 3.4 als Systemanforderung

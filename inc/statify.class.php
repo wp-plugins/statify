@@ -350,7 +350,7 @@ class Statify
 	* JavaScript-Header oder return
 	*
 	* @since   1.1
-	* @change  1.1
+	* @change  1.2.2
 	*
 	* @param   boolean  $is_snippet  JavaScript-Snippte als Aufruf?
 	* @return  mixed                 Exit oder return je nach Snippet
@@ -361,6 +361,7 @@ class Statify
 			header('Cache-Control: no-cache, no-store, max-age=0, must-revalidate');
 			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 			header('Content-type: text/javascript');
+			header('HTTP/1.0 204 No Content');
 			exit;
 		}
 
