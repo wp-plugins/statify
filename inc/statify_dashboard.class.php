@@ -1,6 +1,10 @@
 <?php
 
 
+/* Quit */
+defined('ABSPATH') OR exit;
+
+
 /**
 * Statify_Dashboard
 *
@@ -15,13 +19,13 @@ class Statify_Dashboard
 	* Anzeige des Dashboard-Widgets
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.3
 	*/
 
 	public static function init()
 	{
 		/* Filter */
-		if ( !current_user_can('level_2') ) {
+		if ( ! current_user_can('edit_dashboard') ) {
 			return;
 		}
 
@@ -202,18 +206,18 @@ class Statify_Dashboard
 	* Ausgabe der Backseite
 	*
 	* @since   0.4
-	* @change  1.2.1
+	* @change  1.2.3
 	*/
 
 	public static function print_backview()
 	{
 		/* Rechte */
-		if ( !current_user_can('manage_options') ) {
+		if ( ! current_user_can('edit_dashboard') ) {
 			return;
 		}
 
 		/* Speichern */
-		if ( !empty($_POST['statify']) ) {
+		if ( ! empty($_POST['statify']) ) {
 			/* Formular-Referer */
 			check_admin_referer('_statify');
 
@@ -378,7 +382,7 @@ class Statify_Dashboard
 			'visits' => $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT DATE_FORMAT(`created`, '%%d.%%m') as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
-					$options['days']
+					(int)$options['days']
 				),
 				ARRAY_A
 			),
@@ -404,7 +408,7 @@ class Statify_Dashboard
 	* Bereinigung der veralteten Werte in der DB
 	*
 	* @since   0.3
-	* @change  1.1
+	* @change  1.2.3
 	*/
 
 	private static function _clean_data()
@@ -417,11 +421,14 @@ class Statify_Dashboard
 	    /* Global */
 	    global $wpdb;
 
+	    /* Optionen */
+	    $options = Statify::get_options();
+
 		/* Löschen */
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM `$wpdb->statify` WHERE created <= SUBDATE(CURDATE(), %d)",
-				Statify::get_option('days')
+				(int)$options['days']
 			)
 		);
 

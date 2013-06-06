@@ -1,6 +1,10 @@
 <?php
 
 
+/* Quit */
+defined('ABSPATH') OR exit;
+
+
 /**
 * Statify_Uninstall
 *
@@ -26,9 +30,9 @@ class Statify_Uninstall
 		global $wpdb;
 
 		/* Neuer MU-Blog */
-		if ( !empty($id) ) {
+		if ( ! empty($id) ) {
 			/* Im Netzwerk? */
-			if ( !is_plugin_active_for_network(STATIFY_BASE) ) {
+			if ( ! is_plugin_active_for_network(STATIFY_BASE) ) {
 				return;
 			}
 
@@ -46,7 +50,7 @@ class Statify_Uninstall
 		}
 
 		/* Multisite & Network */
-		if ( is_multisite() && !empty($_GET['networkwide']) ) {
+		if ( is_multisite() && ! empty($_GET['networkwide']) ) {
 			/* Alter Blog */
 			$old = $wpdb->blogid;
 

@@ -1,6 +1,10 @@
 <?php
 
 
+/* Quit */
+defined('ABSPATH') OR exit;
+
+
 /**
 * Statify_XMLRPC
 *
@@ -35,7 +39,7 @@ class Statify_XMLRPC
 	* Ausführung der XMLRPC-Anfrage
 	*
 	* @since   1.1
-	* @change  1.1
+	* @change  1.2.3
 	*
 	* @param   array   $args  Array mit Parametern (Zugangsdaten)
 	* @return  string         String mit Ergebnissen
@@ -43,7 +47,7 @@ class Statify_XMLRPC
 
 	public static function xmlrpc_callback($args) {
 		/* Keine Zugangsdaten? */
-		if ( empty($args[0]) or empty($args[1]) ) {
+		if ( empty($args[0]) OR empty($args[1]) ) {
 			return '{"error": "Keine Zugangsdaten"}';
 		}
 
@@ -51,12 +55,12 @@ class Statify_XMLRPC
 		$user = wp_authenticate($args[0], $args[1]);
 
 		/* Falsche Zugangsdaten */
-		if ( !$user or is_wp_error($user) ) {
+		if ( ! $user OR is_wp_error($user) ) {
 			return '{"error": "Falsche Zugangsdaten"}';
 		}
 
 		/* Berechtigung prüfen */
-		if ( !user_can($user, 'level_2') ) {
+		if ( ! user_can($user, 'edit_dashboard') ) {
 			return '{"error": "Keine Berechtigung"}';
 		}
 

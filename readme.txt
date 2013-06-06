@@ -60,12 +60,17 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 = Autor =
+* [Twitter](https://twitter.com/wpSEO)
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Plugins](http://wpcoder.de "Plugins")
 
 
 
 == Changelog ==
+
+= 1.2.3 =
+* Zusätzliche Absicherung der PHP-Klassen vor direkten Aufrufen
+* Ersatz für Deprecated [User Levels](http://codex.wordpress.org/Roles_and_Capabilities#User_Levels)
 
 = 1.2.2 =
 * No-Cache und No-Content Header für das optionale Zähl-JavaScript
