@@ -150,7 +150,7 @@ class Statify
 		return array_merge(
 			$input,
 			array(
-				'<a href="https://flattr.com/profile/sergej.mueller" target="_blank">Flattr</a>',
+				'<a href="https://flattr.com/t/1733733" target="_blank">Flattr</a>',
 				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
 			)
 		);
