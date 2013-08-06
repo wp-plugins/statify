@@ -18,11 +18,11 @@ class Statify_Table
 	/**
 	* Definition der Tabelle
 	*
-	* @since   0.6
-	* @change  0.6
+	* @since   0.6.0
+	* @change  1.2.4
 	*/
 
-	public function init()
+	public static function init()
 	{
 		/* Global */
 		global $wpdb;
@@ -41,11 +41,11 @@ class Statify_Table
 	/**
 	* Anlegen der Tabelle
 	*
-	* @since   0.6
-	* @change  0.6
+	* @since   0.6.0
+	* @change  1.2.4
 	*/
 
-	public function create()
+	public static function create()
 	{
 		/* Global */
 		global $wpdb;
@@ -77,11 +77,11 @@ class Statify_Table
 	/**
 	* Löschung der Tabelle
 	*
-	* @since   0.6
-	* @change  0.6
+	* @since   0.6.0
+	* @change  1.2.4
 	*/
 
-	public function drop()
+	public static function drop()
 	{
 		/* Global */
 		global $wpdb;

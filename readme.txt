@@ -68,6 +68,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 1.2.4 =
+* Kompatibilität zu WordPress 3.6
+
 = 1.2.3 =
 * Zusätzliche Absicherung der PHP-Klassen vor direkten Aufrufen
 * Ersatz für Deprecated [User Levels](http://codex.wordpress.org/Roles_and_Capabilities#User_Levels)
