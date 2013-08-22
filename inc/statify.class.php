@@ -275,7 +275,7 @@ class Statify
 	* Speicherung des Aufrufes in der DB
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.5
 	*/
 
 	public static function track_visit()
@@ -301,7 +301,7 @@ class Statify
 		}
 
 		/* Bot? */
-		if ( empty($_SERVER['HTTP_USER_AGENT']) or !preg_match('/(?:Windows|Macintosh|Linux)/', $_SERVER['HTTP_USER_AGENT']) ) {
+		if ( empty($_SERVER['HTTP_USER_AGENT']) or !preg_match('/(?:Windows|Macintosh|Linux|iPhone|iPad)/', $_SERVER['HTTP_USER_AGENT']) ) {
 			return self::_jump_out($is_snippet);
 		}
 
