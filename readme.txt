@@ -68,6 +68,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 1.2.5 =
+* Umstellung der Diagramm-Software
+
 = 1.2.4 =
 * Kompatibilität zu WordPress 3.6
 

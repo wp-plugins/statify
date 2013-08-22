@@ -1,11 +1,16 @@
 /* @group Frontend */
 
 #statify_chart {
-	height: 120px;
+	color: #aaa;
+	height: 140px;
+	text-align: center;
+}
+#statify_chart_data {
+	display: none;
 }
 
 #statify_dashboard .table {
-	margin: 10px 0 0;
+	margin: 0 5px;
 	position: relative;
 }
 #statify_dashboard .table p.sub {
@@ -30,7 +35,8 @@
 }
 #statify_dashboard .inside {
 	height: 1%;
-	margin: 10px 0;
+	margin: 0 0 10px;
+	padding: 0 10px;
 	overflow: hidden;
 	position: relative;
 }

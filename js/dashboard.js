@@ -1,65 +1,96 @@
-google.load(
-	'visualization',
-	1,
-	{
-		packages: ['corechart']
-	}
-);
+(function () {
 
+    // Grab the data
+    var labels = [],
+        data = [];
+    jQuery("#statify_chart_data tfoot th").each(function () {
+        labels.push(jQuery(this).html());
+    });
+    jQuery("#statify_chart_data tbody td").each(function () {
+        data.push(jQuery(this).html());
+    });
 
-google.setOnLoadCallback(
-	function() {
-		/* Init */
-		var id,
-			rows = [],
-			chart = {},
-			output = jQuery('#statify_chart'),
-			data = new google.visualization.DataTable();
+    // Draw
+    var width = jQuery('#statify_chart').parent().width() + 2,
+        height = 140,
+        leftgutter = 2,
+        bottomgutter = 20,
+        topgutter = 20,
+        colorhue = .6 || Math.random(),
+        color = '#3399CC',
+        r = Raphael("statify_chart", width, height),
+        txt = {font: 'bold 10px Helvetica, Arial', fill: "#333"},
+        txt1 = {font: 'bold 10px Helvetica, Arial', fill: "#fff"},
+        X = (width - leftgutter * 2) / labels.length,
+        max = Math.max.apply(Math, data),
+        Y = (height - bottomgutter - topgutter) / max;
+        r.drawGrid(leftgutter + X * .5, topgutter , width - leftgutter * 2 - X, height - topgutter - bottomgutter, 10, 10, "#eaeaea");
 
-		/* Leer? */
-		if ( !statify ) {
-			return;
-		}
+    var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
+        label = r.set(),
+        lx = 0, ly = 0,
+        is_label_visible = false,
+        leave_timer,
+        blanket = r.set();
+    label.push(r.text(60, 12, "1234 Aufrufe").attr(txt));
+    label.push(r.text(60, 27, "15.08.2013").attr(txt1).attr({fill: color}));
+    label.hide();
+    var frame = r.popup(100, 100, label, "right").attr({fill: "#fff", stroke: "#333", "stroke-width": 2, "fill-opacity": .8}).hide();
 
-		/* Loopen */
-		for (id in statify) {
-			rows[id] = [statify[id].date, parseInt(statify[id].count)];
-		}
+    var p, bgpp;
+    for (var i = 0, ii = labels.length; i < ii; i++) {
+        var y = Math.round(height - bottomgutter - Y * data[i]),
+            x = Math.round(leftgutter + X * (i + .5));
+        if (!i) {
+            p = ["M", x, y, "C", x, y];
+        }
+        if (i && i < ii - 1) {
+            var Y0 = Math.round(height - bottomgutter - Y * data[i - 1]),
+                X0 = Math.round(leftgutter + X * (i - .5)),
+                Y2 = Math.round(height - bottomgutter - Y * data[i + 1]),
+                X2 = Math.round(leftgutter + X * (i + 1.5));
+            var a = getAnchors(X0, Y0, x, y, X2, Y2);
+            p = p.concat([a.x1, a.y1, x, y, a.x2, a.y2]);
+        }
+        var dot = r.circle(x, y, 3).attr({fill: "#fff", stroke: color, "stroke-width": 2});
+        blanket.push(r.rect(leftgutter + X * i, 0, X, height - bottomgutter).attr({stroke: "none", fill: "#fff", opacity: 0}));
+        var rect = blanket[blanket.length - 1];
+        (function (x, y, data, lbl, dot) {
+            var timer, i = 0;
+            rect.hover(function () {
+                clearTimeout(leave_timer);
+                var side = "right";
+                if (x + frame.getBBox().width > width) {
+                    side = "left";
+                }
+                var ppp = r.popup(x, y, label, side, 1),
+                    anim = Raphael.animation({
+                        path: ppp.path,
+                        transform: ["t", ppp.dx, ppp.dy]
+                    }, 200 * is_label_visible);
+                lx = label[0].transform()[0][1] + ppp.dx;
+                ly = label[0].transform()[0][2] + ppp.dy;
+                frame.show().stop().animate(anim);
 
-		/* Spalten */
-		data.addColumn('string', 'Datum');
-		data.addColumn('number', 'Aufrufe');
-		data.addRows(rows);
-
-		/* Chart */
-		chart = new google.visualization.AreaChart(output.get(0));
-
-	  	/* Zeichnen */
-	  	chart.draw(
-	  		data,
-	  		{
-				'width': output.parent().width(),
-				'height': 120,
-				'legend': 'none',
-				'colors': ['#3399CC'],
-				'pointSize': 6,
-				'lineWidth': 3,
-				'gridlineColor': '#ececec',
-				'backgroundColor': 'transparent',
-				'reverseCategories': true,
-				'vAxis': {
-					'textPosition': 'in',
-					'baselineColor': 'transparent',
-					'textStyle': {
-						'color': '#8F8F8F',
-						'fontSize': 10
-					}
-				},
-				'chartArea': {
-					'width': "100%",
-					'height': "100%"
-				}
-			}
-		);
-	}
-);
+                label[0].attr({text: data + " Aufrufe"}).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+                label[1].attr({text: lbl }).show().stop().animateWith(frame, anim, {transform: ["t", lx, ly]}, 200 * is_label_visible);
+                dot.attr("r", 5);
+                is_label_visible = true;
+            }, function () {
+                dot.attr("r", 3);
+                leave_timer = setTimeout(function () {
+                    frame.hide();
+                    label[0].hide();
+                    label[1].hide();
+                    is_label_visible = false;
+                }, 1);
+            });
+        })(x, y, data[i], labels[i], dot);
+    }
+    p = p.concat([x, y, x, y]);
+    path.attr({path: p});
+    frame.toFront();
+    label[0].toFront();
+    label[1].toFront();
+    blanket.toFront();
+})();

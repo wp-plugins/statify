@@ -39,7 +39,7 @@ class Statify_XMLRPC
 	* Ausführung der XMLRPC-Anfrage
 	*
 	* @since   1.1
-	* @change  1.2.3
+	* @change  1.2.5
 	*
 	* @param   array   $args  Array mit Parametern (Zugangsdaten)
 	* @return  string         String mit Ergebnissen

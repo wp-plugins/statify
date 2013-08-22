@@ -92,43 +92,47 @@ class Statify_Dashboard
 	* Ausgabe von JavaScript
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.5
 	*/
 
 	public static function add_js() {
 		/* Keine Statistiken? */
-		if ( ! $data = self::get_stats() ) {
+		if ( ! self::get_stats() ) {
 			return;
 		}
 
-		/* Edit-Modus? */
+		/* Edit modus? */
 		if ( isset($_GET['edit']) && $_GET['edit'] === 'statify_dashboard' ) {
 			return;
 		}
 
-		/* Registrieren */
+		/* Register scripts */
 		wp_register_script(
-			'statify',
-			plugins_url('/js/dashboard.min.js', STATIFY_FILE),
+			'sm_raphael_js',
+			plugins_url('js/raphael.min.js', STATIFY_FILE),
 			array(),
-			STATIFY_VERSION
+			STATIFY_VERSION,
+			true
 		);
 		wp_register_script(
-			'google_jsapi',
-			'https://www.google.com/jsapi',
-			false
+			'sm_raphael_helper',
+			plugins_url('js/raphael.helper.min.js', STATIFY_FILE),
+			array(),
+			STATIFY_VERSION,
+			true
+		);
+		wp_register_script(
+			'statify_chart_js',
+			plugins_url('js/dashboard.min.js', STATIFY_FILE),
+			array('jquery'),
+			STATIFY_VERSION,
+			true
 		);
 
-		/* Einbinden */
-		wp_enqueue_script('google_jsapi');
-		wp_enqueue_script('statify');
-
-		/* Übergeben */
-		wp_localize_script(
-			'statify',
-			'statify',
-			$data['visits']
-		);
+		/* Embed scripts */
+		wp_enqueue_script('sm_raphael_js');
+		wp_enqueue_script('sm_raphael_helper');
+		wp_enqueue_script('statify_chart_js');
 	}
 
 
@@ -136,69 +140,101 @@ class Statify_Dashboard
 	* Ausgabe der Frontseite
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.5
 	*/
 
 	public static function print_frontview()
 	{
-		/* Statistiken */
-		if ( $data = self::get_stats() ) { ?>
-			<div id="statify_chart">
-				<noscript>Zur Darstellung der Statistik wird JavaScript benötigt.</noscript>
-			</div>
+		/* Get stats */
+		$stats = self::get_stats();
 
-			<div class="table target">
-				<p class="sub">Top Inhalte</p>
+		/* No results? */
+		if ( ! $stats ) {
+			echo sprintf(
+				'<div id="statify_chart"><p>%s</p></div>',
+				'Keine Daten verfügbar.'
+			);
 
-				<div>
-					<table>
-						<?php if ( $data['target'] ) { ?>
-							<?php foreach ($data['target'] as $target) { ?>
-								<tr class="first">
-									<td class="b">
-										<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo intval($target['count']) ?></a>
-									</td>
-									<td class="last t">
-										<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
-									</td>
-								</tr>
-							<?php } ?>
-						<?php } else { ?>
-							<tr>
-								<td>Keine</td>
+			return;
+		}
+
+		/* Get visits */
+		$visits = array_reverse($stats['visits']);
+
+		/* HTML start */
+		$html = "<table id=statify_chart_data>\n";
+
+
+		/* Timestamp table */
+		$html .= "<tfoot><tr>\n";
+		foreach($visits as $item) {
+			$html .= "<th>" .$item['date']. "</th>\n";
+		}
+		$html .= "</tr></tfoot>\n";
+
+		/* Counter table */
+		$html .= "<tbody><tr>\n";
+		foreach($visits as $item) {
+			$html .= "<td>" .(int) $item['count']. "</td>\n";
+		}
+		$html .= "</tr></tbody>\n";
+
+
+		/* HTML end */
+		$html .= "</table>\n";
+
+		/* Print html */
+		echo '<div id="statify_chart">' .$html. '</div>'; ?>
+
+		<div class="table target">
+			<p class="sub">Top Inhalte</p>
+
+			<div>
+				<table>
+					<?php if ( $stats['target'] ) { ?>
+						<?php foreach ($stats['target'] as $target) { ?>
+							<tr class="first">
+								<td class="b">
+									<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo intval($target['count']) ?></a>
+								</td>
+								<td class="last t">
+									<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
+								</td>
 							</tr>
 						<?php } ?>
-					</table>
-				</div>
+					<?php } else { ?>
+						<tr>
+							<td>Keine</td>
+						</tr>
+					<?php } ?>
+				</table>
 			</div>
+		</div>
 
-			<div class="table referrer">
-				<p class="sub">Top Referrer</p>
+		<div class="table referrer">
+			<p class="sub">Top Referrer</p>
 
-				<div>
-					<table>
-						<?php if ( $data['referrer'] ) { ?>
-							<?php foreach ($data['referrer'] as $referrer) { ?>
-								<tr class="first">
-									<td class="first b">
-										<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo intval($referrer['count']) ?></a>
-									</td>
-									<td class="t">
-										<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
-									</td>
-								</tr>
-							<?php } ?>
-						<?php } else { ?>
-							<tr>
-								<td>Keine</td>
+			<div>
+				<table>
+					<?php if ( $stats['referrer'] ) { ?>
+						<?php foreach ($stats['referrer'] as $referrer) { ?>
+							<tr class="first">
+								<td class="first b">
+									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo intval($referrer['count']) ?></a>
+								</td>
+								<td class="t">
+									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
+								</td>
 							</tr>
 						<?php } ?>
-					</table>
-				</div>
+					<?php } else { ?>
+						<tr>
+							<td>Keine</td>
+						</tr>
+					<?php } ?>
+				</table>
 			</div>
-		<?php } else { ?>
-			<p>Keine Daten.</p>
-		<?php } ?>
+		</div>
 	<?php }
 
 
@@ -302,7 +338,7 @@ class Statify_Dashboard
 	* Rückgabe der Statistiken
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.5
 	*
 	* @return  array  $data  Array mit Statistiken
 	*/
@@ -318,7 +354,12 @@ class Statify_Dashboard
 		self::_clean_data();
 
 		/* Stats abrufen */
-		$data = self::_prepare_stats();
+		$data = self::_select_data();
+
+		/* Empty stats */
+		if ( empty($data['visits']) ) {
+			$data = NULL;
+		}
 
 		/* Merken */
 		set_transient(
@@ -332,40 +373,10 @@ class Statify_Dashboard
 
 
 	/**
-	* Liest Daten aus der DB aus und bereitet diese vor
-	*
-	* @since   0.1
-	* @change  1.1
-	*
-	* @return  array  $data  Array mit ausgelesenen Daten
-	*/
-
-	public static function _prepare_stats()
-	{
-		/* Nix in der DB? */
-		if ( ! $data = self::_select_data() ) {
-			return false;
-		}
-
-		/* Noch keine Daten? */
-		if ( empty($data['visits']) ) {
-			return false;
-		}
-
-		/* Heute? */
-		if ( $data['visits'][0]['date'] == date('d.m', current_time('timestamp')) ) {
-			$data['visits'][0]['date'] = 'Heute';
-		}
-
-		return $data;
-	}
-
-
-	/**
 	* Statistiken aus der DB
 	*
 	* @since   0.1
-	* @change  1.1
+	* @change  1.2.5
 	*
 	* @return  array  Array mit ausgelesenen Daten
 	*/
@@ -381,7 +392,7 @@ class Statify_Dashboard
 		return array(
 			'visits' => $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT DATE_FORMAT(`created`, '%%d.%%m') as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
+					"SELECT DATE_FORMAT(`created`, '%%d.%%m.%%Y') as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
 					(int)$options['days']
 				),
 				ARRAY_A
