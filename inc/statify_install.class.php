@@ -52,9 +52,7 @@ class Statify_Install
 		/* Multisite & Network */
 		if ( is_multisite() && ! empty($_GET['networkwide']) ) {
 			/* Blog-IDs */
-			$ids = $wpdb->get_col(
-				$wpdb->prepare("SELECT blog_id FROM `$wpdb->blogs`")
-			);
+			$ids = $wpdb->get_col("SELECT blog_id FROM `$wpdb->blogs`");
 
 			/* Loopen */
 			foreach ($ids as $id) {

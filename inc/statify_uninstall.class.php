@@ -55,9 +55,7 @@ class Statify_Uninstall
 			$old = $wpdb->blogid;
 
 			/* Blog-IDs */
-			$ids = $wpdb->get_col(
-				$wpdb->prepare("SELECT blog_id FROM `$wpdb->blogs`")
-			);
+			$ids = $wpdb->get_col("SELECT blog_id FROM `$wpdb->blogs`");
 
 			/* Loopen */
 			foreach ($ids as $id) {
