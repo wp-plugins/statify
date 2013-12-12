@@ -2,8 +2,8 @@
 Contributors: sergej.mueller
 Tags: stats, analytics, privacy, dashboard
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
-Requires at least: 3.0
-Tested up to: 3.7
+Requires at least: 3.8
+Tested up to: 3.8
 Stable tag: trunk
 
 
@@ -43,7 +43,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 = Systemanforderungen =
 * PHP 5.2.4
-* WordPress ab 3.4
+* WordPress ab 3.8
 
 
 = Unterstützung =
@@ -67,6 +67,10 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 1.2.6 =
+* Optimierung für WordPress 3.8
+* Steuerung des Trackings via `statify_skip_tracking`
 
 = 1.2.5 =
 * Umstellung der Diagramm-Software

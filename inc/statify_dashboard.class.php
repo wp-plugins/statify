@@ -140,7 +140,7 @@ class Statify_Dashboard
 	* Ausgabe der Frontseite
 	*
 	* @since   0.1
-	* @change  1.2.5
+	* @change  1.2.6
 	*/
 
 	public static function print_frontview()
@@ -186,55 +186,47 @@ class Statify_Dashboard
 		/* Print html */
 		echo '<div id="statify_chart">' .$html. '</div>'; ?>
 
-		<div class="table target">
-			<p class="sub">Top Inhalte</p>
+		<?php if ( $stats['target'] ) { ?>
+			<div class="table target">
+				<p class="sub">Top Inhalte</p>
 
-			<div>
-				<table>
-					<?php if ( $stats['target'] ) { ?>
+				<div>
+					<table>
 						<?php foreach ($stats['target'] as $target) { ?>
-							<tr class="first">
+							<tr>
 								<td class="b">
-									<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo intval($target['count']) ?></a>
+									<?php echo intval($target['count']) ?>
 								</td>
-								<td class="last t">
+								<td class="t">
 									<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
 								</td>
 							</tr>
 						<?php } ?>
-					<?php } else { ?>
-						<tr>
-							<td>Keine</td>
-						</tr>
-					<?php } ?>
-				</table>
+					</table>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 
-		<div class="table referrer">
-			<p class="sub">Top Referrer</p>
+		<?php if ( $stats['referrer'] ) { ?>
+			<div class="table referrer">
+				<p class="sub">Top Referrer</p>
 
-			<div>
-				<table>
-					<?php if ( $stats['referrer'] ) { ?>
+				<div>
+					<table>
 						<?php foreach ($stats['referrer'] as $referrer) { ?>
-							<tr class="first">
-								<td class="first b">
-									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo intval($referrer['count']) ?></a>
+							<tr>
+								<td class="b">
+									<?php echo intval($referrer['count']) ?>
 								</td>
 								<td class="t">
 									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
 								</td>
 							</tr>
 						<?php } ?>
-					<?php } else { ?>
-						<tr>
-							<td>Keine</td>
-						</tr>
-					<?php } ?>
-				</table>
+					</table>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 	<?php }
 
 
@@ -294,42 +286,63 @@ class Statify_Dashboard
 		wp_nonce_field('_statify'); ?>
 
 		<table class="form-table">
-			<tr>
+			<tr valign="top">
+				<th scope="row">
+					Statistik
+				</th>
 				<td>
-					<select name="statify[days]" id="statify_days">
-						<?php foreach( $dmatrix as $days => $string ) { ?>
-							<option value="<?php echo $days ?>" <?php selected($options['days'], $days); ?>><?php echo $string ?></option>
-						<?php } ?>
-					</select>
-					<label for="statify_days">Zeitraum für Statistiken</label>
+					<fieldset>
+						<label for="statify_days">
+							<select name="statify[days]" id="statify_days">
+								<?php foreach( $dmatrix as $days => $string ) { ?>
+									<option value="<?php echo $days ?>" <?php selected($options['days'], $days); ?>>
+										<?php echo $string ?>
+									</option>
+								<?php } ?>
+							</select>
+							Zeitraum der Aufbewahrung
+						</label>
+
+						<br />
+
+						<label for="statify_limit">
+							<select name="statify[limit]" id="statify_limit">
+								<?php foreach( range(0, 12) as $num ) { ?>
+									<option <?php selected($options['limit'], $num) ?>>
+										<?php echo $num ?>
+									</option>
+								<?php } ?>
+							</select>
+							Anzahl der Einträge in Listen
+						</label>
+
+						<br />
+
+						<label for="statify_today">
+							<input type="checkbox" name="statify[today]" id="statify_today" value="1" <?php checked($options['today'], 1) ?> />
+							Einträge in Listen nur von heute
+						</label>
+					</fieldset>
 				</td>
 			</tr>
-			<tr>
+
+			<tr valign="top">
+				<th scope="row">
+					Tracking
+				</th>
 				<td>
-					<select name="statify[limit]" id="statify_limit">
-						<?php foreach( range(0, 12) as $num ) { ?>
-							<option <?php selected($options['limit'], $num) ?>><?php echo $num ?></option>
-						<?php } ?>
-					</select>
-					<label for="statify_limit">Anzahl der Einträge in Listen</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" name="statify[today]" id="statify_today" value="1" <?php checked($options['today'], 1) ?> />
-					<label for="statify_today">Referrer und Ziele nur vom aktuellen Tag</label>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="checkbox" name="statify[snippet]" id="statify_snippet" value="1" <?php checked($options['snippet'], 1) ?> />
-					<label for="statify_snippet">Tracking via JavaScript-Snippet</label>
+					<fieldset>
+						<label for="statify_snippet">
+							<input type="checkbox" name="statify[snippet]" id="statify_snippet" value="1" <?php checked($options['snippet'], 1) ?> />
+							Besucherzählung via JavaScript-Snippet
+						</label>
+					</fieldset>
 				</td>
 			</tr>
 		</table>
 
 		<p class="meta-links">
-			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a><a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a><a href="https://flattr.com/t/1733733" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a> &bull; <a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 		</p>
 	<?php }
 

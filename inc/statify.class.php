@@ -275,7 +275,7 @@ class Statify
 	* Speicherung des Aufrufes in der DB
 	*
 	* @since   0.1
-	* @change  1.2.5
+	* @change  1.2.6
 	*/
 
 	public static function track_visit()
@@ -306,7 +306,7 @@ class Statify
 		}
 
 		/* Filter */
-		if ( is_feed() or is_trackback() or is_robots() or is_preview() or is_user_logged_in() or is_404() ) {
+		if ( self::_skip_tracking() ) {
 			return self::_jump_out($is_snippet);
 		}
 
@@ -347,6 +347,26 @@ class Statify
 
 		/* Beenden */
 		return self::_jump_out($is_snippet);
+	}
+
+
+	/**
+	* Steuerung des Tracking-Mechanismus
+	*
+	* @since   1.2.6
+	* @change  1.2.6
+	*
+	* @hook    boolean  statify_skip_tracking
+	*
+	* @return  boolean  $skip_hook  TRUE, wenn KEIN Tracking des Aufrufes erfolgen soll
+	*/
+
+	private static function _skip_tracking() {
+		if ( ( $skip_hook = apply_filters('statify_skip_tracking', NULL) ) !== NULL ) {
+			return $skip_hook;
+		}
+
+		return ( is_feed() OR is_trackback() OR is_robots() OR is_preview() OR is_user_logged_in() OR is_404() );
 	}
 
 
