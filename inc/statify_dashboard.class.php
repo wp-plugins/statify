@@ -334,7 +334,7 @@ class Statify_Dashboard
 					<fieldset>
 						<label for="statify_snippet">
 							<input type="checkbox" name="statify[snippet]" id="statify_snippet" value="1" <?php checked($options['snippet'], 1) ?> />
-							Besucherzählung via JavaScript-Snippet
+							Seitenzählung via JavaScript-Snippet
 						</label>
 					</fieldset>
 				</td>
