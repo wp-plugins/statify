@@ -140,7 +140,7 @@ class Statify_Dashboard
 	* Ausgabe der Frontseite
 	*
 	* @since   0.1
-	* @change  1.2.6
+	* @change  1.2.7
 	*/
 
 	public static function print_frontview()
@@ -198,7 +198,7 @@ class Statify_Dashboard
 									<?php echo intval($target['count']) ?>
 								</td>
 								<td class="t">
-									<a href="<?php echo home_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
+									<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
 								</td>
 							</tr>
 						<?php } ?>
