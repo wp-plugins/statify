@@ -68,6 +68,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 1.2.8 =
+* JavaScript-Snippet: Relativer Pfad für HTTP(S)-Aufrufe
+
 = 1.2.7 =
 * Unterstützung zu WordPress 3.9
 * Korrektur der Dashboard-Links (wenn WordPress im Unterordner)

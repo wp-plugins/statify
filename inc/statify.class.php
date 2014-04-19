@@ -414,7 +414,7 @@ class Statify
 	* Ausgabe des JS-Snippets
 	*
 	* @since   1.1
-	* @change  1.1
+	* @change  1.2.8
 	*/
 
 	public static function wp_footer()
@@ -432,7 +432,7 @@ class Statify
 
 					e.async = true;
 					e.type = 'text/javascript';
-					e.src = '<?php echo home_url('/') ?>' + p;
+					e.src = "<?php echo home_url('/', 'relative') ?>" + p;
 
 					s.parentNode.insertBefore(e, s);
 				})();
