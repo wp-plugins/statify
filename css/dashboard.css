@@ -1,4 +1,4 @@
-/* @group Vorderseite */
+/* @group Front page */
 
 #statify_chart {
 	color: #aaa;
@@ -52,7 +52,7 @@
 /* @end group */
 
 
-/* @group Hinterseite */
+/* @group Back stage */
 
 #statify_dashboard .dashboard-widget-control-form {
 	padding: 0 0 18px;
