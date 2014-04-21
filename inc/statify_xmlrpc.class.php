@@ -18,8 +18,8 @@ class Statify_XMLRPC
 	/**
 	* Erweiterung der XMLRPC-Methode
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*
 	* @return  array  $methods  Array ohne Plugin-Callback
 	* @return  array  $methods  Array mit Plugin-Callback
@@ -38,7 +38,7 @@ class Statify_XMLRPC
 	/**
 	* Ausführung der XMLRPC-Anfrage
 	*
-	* @since   1.1
+	* @since   1.1.0
 	* @change  1.2.5
 	*
 	* @param   array   $args  Array mit Parametern (Zugangsdaten)

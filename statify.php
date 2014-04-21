@@ -5,7 +5,7 @@ Description: Kompakte, begreifliche und datenschutzkonforme Statistik für WordP
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://statify.de
-Version: 1.2.8
+Version: 1.3.0
 */
 
 

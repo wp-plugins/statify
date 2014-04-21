@@ -18,7 +18,7 @@ class Statify_Dashboard
 	/**
 	* Anzeige des Dashboard-Widgets
 	*
-	* @since   0.1
+	* @since   0.1.0
 	* @change  1.2.3
 	*/
 
@@ -69,8 +69,8 @@ class Statify_Dashboard
 	/**
 	* Ausgabe der Stylesheets
 	*
-	* @since   0.1
-	* @change  1.1
+	* @since   0.1.0
+	* @change  1.1.0
 	*/
 
 	public static function add_style()
@@ -91,7 +91,7 @@ class Statify_Dashboard
 	/**
 	* Ausgabe von JavaScript
 	*
-	* @since   0.1
+	* @since   0.1.0
 	* @change  1.2.5
 	*/
 
@@ -139,8 +139,8 @@ class Statify_Dashboard
 	/**
 	* Ausgabe der Frontseite
 	*
-	* @since   0.1
-	* @change  1.2.7
+	* @since   0.1.0
+	* @change  1.3.0
 	*/
 
 	public static function print_frontview()
@@ -167,15 +167,15 @@ class Statify_Dashboard
 
 		/* Timestamp table */
 		$html .= "<tfoot><tr>\n";
-		foreach($visits as $item) {
-			$html .= "<th>" .$item['date']. "</th>\n";
+		foreach ($visits as $item) {
+			$html .= "<th>" .esc_html($item['date']). "</th>\n";
 		}
 		$html .= "</tr></tfoot>\n";
 
 		/* Counter table */
 		$html .= "<tbody><tr>\n";
 		foreach($visits as $item) {
-			$html .= "<td>" .(int) $item['count']. "</td>\n";
+			$html .= "<td>" .intval($item['count']). "</td>\n";
 		}
 		$html .= "</tr></tbody>\n";
 
@@ -233,7 +233,7 @@ class Statify_Dashboard
 	/**
 	* Ausgabe der Backseite
 	*
-	* @since   0.4
+	* @since   0.4.0
 	* @change  1.2.3
 	*/
 
@@ -260,7 +260,7 @@ class Statify_Dashboard
 			);
 
 			/* Internen Cache Leeren */
-			delete_transient('statify');
+			delete_transient('statify_chart');
 
 			/* Cachify Cache leeren */
 			if ( has_action('cachify_flush_cache') ) {
@@ -342,7 +342,7 @@ class Statify_Dashboard
 		</table>
 
 		<p class="meta-links">
-			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a> &bull; <a href="http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app" target="_blank">Chrome App</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 		</p>
 	<?php }
 
@@ -350,8 +350,8 @@ class Statify_Dashboard
 	/**
 	* Rückgabe der Statistiken
 	*
-	* @since   0.1
-	* @change  1.2.5
+	* @since   0.1.0
+	* @change  1.3.0
 	*
 	* @return  array  $data  Array mit Statistiken
 	*/
@@ -359,7 +359,7 @@ class Statify_Dashboard
 	public static function get_stats()
 	{
 		/* Auf Cache zugreifen */
-		if ( $data = get_transient('statify') ) {
+		if ( $data = get_transient('statify_chart') ) {
 			return $data;
 		}
 
@@ -376,9 +376,9 @@ class Statify_Dashboard
 
 		/* Merken */
 		set_transient(
-		   'statify',
+		   'statify_chart',
 		   $data,
-		   60 * 4 // = 4 Minuten
+		   MINUTE_IN_SECONDS * 4
 		);
 
 		return $data;
@@ -388,7 +388,7 @@ class Statify_Dashboard
 	/**
 	* Statistiken aus der DB
 	*
-	* @since   0.1
+	* @since   0.1.0
 	* @change  1.2.5
 	*
 	* @return  array  Array mit ausgelesenen Daten
@@ -431,8 +431,8 @@ class Statify_Dashboard
 	/**
 	* Bereinigung der veralteten Werte in der DB
 	*
-	* @since   0.3
-	* @change  1.2.3
+	* @since   0.3.0
+	* @change  1.3.0
 	*/
 
 	private static function _clean_data()
@@ -465,7 +465,7 @@ class Statify_Dashboard
 		set_transient(
 			'statify_cron',
 			'ilovesweta',
-			60 * 60 * 12
+			HOUR_IN_SECONDS * 12
 		);
 	}
 
@@ -473,8 +473,8 @@ class Statify_Dashboard
 	/**
 	* Plugin-Version als Konstante
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*/
 
 	private static function _define_version()
