@@ -8,29 +8,29 @@ Stable tag: trunk
 
 
 
-Besucherstatistik mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichkeit. Ideal fürs Dashboard.
+Besucherstatistik in WordPress mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichkeit. Ideal für Dashboard.
 
 
 
 == Description ==
 
-*Statify* verfolgt ein simples Ziel: Live-Zugriffszahlen des Blogs blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack.
+Das kostenlose Plugin *Statify* verfolgt ein simples Ziel: Zugriffszahlen der WordPress-Website blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack. Ohne meterlange Datenschutzerklärungen.
 
 
 = Dashboard-Widget =
-Weniger ist mehr: Das Statistik-Plugin präsentiert auf dem Admin-Dashboard den aktuellen Verlauf der Seitenaufrufe in Form eines interaktiven Diagramms. Der Zeitskala folgt jeweils eine Liste mit den häufigsten Verweisquellen (Referrer) und den meist aufgerufenen Zielseiten im Blog. Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
+Weniger ist mehr: Den aktuellen Verlauf der Seitenaufrufe präsentiert das Statistik-Plugin in Form eines interaktiven Diagramms, siehe [Screenshots](https://wordpress.org/plugins/statify/screenshots/). Der Zeitskala folgen eine Liste mit den häufigsten Verweisquellen (Referrer) und den meist aufgerufenen Zielseiten (Target) im Blog. Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
 
 
 = Datenschutz =
-Im unmittelbaren Vergleich zu Statistik-Diensten wie *Google Analytics* oder *WordPress.com Stats* verarbeitet und speichert *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen. Absolute Datenschutzkonformität gepaart mit transparenter Arbeitsweise: Eine lokal in WordPress angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit eingesehen, bereinigt, geleert werden.
-
-
-= Caching-Plugins =
-Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
+In unmittelbarem Vergleich zu Statistik-Diensten wie *Google Analytics*, *WordPress.com Stats* und *Piwik* verarbeitet und speichert *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen – *Statify* zählt Seitenaufrufe, keine Besucher. Absolute Datenschutzkonformität gepaart mit transparenter Arbeitsweise: Eine lokal in WordPress angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit eingesehen, bereinigt und geleert werden.
 
 
 = Filter =
 *Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
+
+
+= Caching-Plugins =
+Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
 
 
 > #### Statify Chrome App
@@ -38,7 +38,7 @@ Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/
 
 
 = Support =
-Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
+Freundlich formulierte (An)Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 = Systemanforderungen =
@@ -60,9 +60,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 = Autor =
-* [Twitter](https://twitter.com/wpSEO)
-* [Google+](https://plus.google.com/110569673423509816572 "Google+")
-* [Plugins](http://wpcoder.de "Plugins")
+* [Twitter](https://twitter.com/wpSEO "Sergej Müller auf Twitter")
+* [Google+](https://plus.google.com/110569673423509816572 "Sergej Müller auf Google+")
+* [Plugins](http://wpcoder.de "WordPress Plugins")
 
 
 
