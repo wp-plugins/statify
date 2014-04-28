@@ -69,7 +69,7 @@ Freundlich formulierte (An)Fragen rund um das Plugin werden per E-Mail beantwort
 == Changelog ==
 
 = 1.3.0 =
-* Code-Bereinigungen für die Plugin-Finalisierung
+* Sourcecode-Optimierung für die Plugin-Finalisierung
 
 = 1.2.8 =
 * JavaScript-Snippet: Relativer Pfad für HTTP(S)-Aufrufe
