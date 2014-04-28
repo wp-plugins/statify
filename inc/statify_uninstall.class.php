@@ -18,8 +18,8 @@ class Statify_Uninstall
 	/**
 	* Uninstallation auch für MU-Blog
 	*
-	* @since   0.1
-	* @change  0.1
+	* @since   0.1.0
+	* @change  0.1.0
 	*
 	* @param   integer  ID des Blogs
 	*/
@@ -78,8 +78,8 @@ class Statify_Uninstall
 	/**
 	* Löschung der Daten
 	*
-	* @since   0.1
-	* @change  0.1
+	* @since   0.1.0
+	* @change  1.3.0
 	*/
 
 	private static function _apply()
@@ -87,8 +87,9 @@ class Statify_Uninstall
 		/* Option */
 		delete_option('statify');
 
-		/* Transient */
-		delete_transient('statify');
+		/* Transients */
+		delete_transient('statify_chart');
+		delete_transient('statify_cron');
 
 		/* Tabelle setzen */
 		Statify_Table::init();

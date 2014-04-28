@@ -8,7 +8,7 @@ defined('ABSPATH') OR exit;
 /**
 * Statify
 *
-* @since 0.1
+* @since 0.1.0
 */
 
 class Statify
@@ -25,8 +25,8 @@ class Statify
 	/**
 	* Pseudo-Konstruktor der Klasse
 	*
-	* @since   0.1
-	* @change  0.1
+	* @since   0.1.0
+	* @change  0.1.0
 	*/
 
 	public static function instance()
@@ -38,8 +38,8 @@ class Statify
 	/**
 	* Konstruktor der Klasse
 	*
-	* @since   0.1
-	* @change  1.1
+	* @since   0.1.0
+	* @change  1.1.0
 	*/
 
 	public function __construct()
@@ -132,8 +132,8 @@ class Statify
 	/**
 	* Hinzufügen der Meta-Links
 	*
-	* @since   0.1
-	* @change  1.1
+	* @since   0.1.0
+	* @change  1.1.0
 	*
 	* @param   array   $input  Array mit Links
 	* @param   string  $file   Name des Plugins
@@ -160,8 +160,8 @@ class Statify
 	/**
 	* Hinzufügen des Action-Links
 	*
-	* @since   0.1
-	* @change  1.1
+	* @since   0.1.0
+	* @change  1.1.0
 	*/
 
 	public static function add_action_link($input)
@@ -193,8 +193,8 @@ class Statify
 	/**
 	* Speicherung der Plugin-Optionen
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*
 	* @param   array  $options  Array mit Optionen
 	*/
@@ -218,8 +218,8 @@ class Statify
 	/**
 	* Rückgabe der Plugin-Optionen
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*
 	* @return  array  $options  Array mit Optionen
 	*/
@@ -255,8 +255,8 @@ class Statify
 	/**
 	* Rückgabe einer bestimmten Plugin-Option
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*
 	* @param   string  $key  Array-Key für Optionen
 	* @return  mixed         Wert der angeforderten Option
@@ -274,8 +274,8 @@ class Statify
 	/**
 	* Speicherung des Aufrufes in der DB
 	*
-	* @since   0.1
-	* @change  1.2.6
+	* @since   0.1.0
+	* @change  1.3.0
 	*/
 
 	public static function track_visit()
@@ -288,7 +288,7 @@ class Statify
 		if ( $is_snippet ) {
 			$target = urldecode( get_query_var('statify_target') );
 			$referrer = urldecode( get_query_var('statify_referrer') );
-		} else if ( !$use_snippet) {
+		} else if ( ! $use_snippet) {
 			$target = ( empty($_SERVER['REQUEST_URI']) ? '/' : $_SERVER['REQUEST_URI'] );
 			$referrer = ( empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'] );
 		} else {
@@ -301,7 +301,7 @@ class Statify
 		}
 
 		/* Bot? */
-		if ( empty($_SERVER['HTTP_USER_AGENT']) or !preg_match('/(?:Windows|Macintosh|Linux|iPhone|iPad)/', $_SERVER['HTTP_USER_AGENT']) ) {
+		if ( empty($_SERVER['HTTP_USER_AGENT']) OR ! preg_match('/(?:Windows|Macintosh|Linux|iPhone|iPad)/', $_SERVER['HTTP_USER_AGENT']) ) {
 			return self::_jump_out($is_snippet);
 		}
 
@@ -314,8 +314,11 @@ class Statify
 		global $wpdb, $wp_rewrite;
 
 		/* Init */
-		$data = array();
-		$home = home_url();
+		$data = array(
+			'created'  => '',
+			'referrer' => '',
+			'target'   => ''
+		);
 
 		/* Timestamp */
 		$data['created'] = strftime(
@@ -324,16 +327,16 @@ class Statify
 		);
 
 		/* Referrer */
-		if ( !empty($referrer) && strpos($referrer, $home) === false ) {
+		if ( ! empty($referrer) && strpos( $referrer, home_url() ) === false ) {
 			$data['referrer'] = esc_url_raw($referrer);
 		}
 
 		/* Ziel */
-		$data['target'] = str_replace( $home, '', home_url($target) );
+		$data['target'] = home_url($target, 'relative');
 
 		/* Parameter entfernen */
-		if ( $wp_rewrite->permalink_structure && !is_search() ) {
-			$data['target'] = preg_replace('/\?.*/', '', $data['target']);
+		if ( $wp_rewrite->permalink_structure && ! is_search() ) {
+			$data['target'] = parse_url($data['target'], PHP_URL_PATH);
 		}
 
 		/* Absichern */
@@ -358,7 +361,7 @@ class Statify
 	*
 	* @hook    boolean  statify_skip_tracking
 	*
-	* @return  boolean  $skip_hook  TRUE, wenn KEIN Tracking des Aufrufes erfolgen soll
+	* @return  boolean  $skip_hook  TRUE, wenn KEIN Tracking des Seitenaufrufes erfolgen soll
 	*/
 
 	private static function _skip_tracking() {
@@ -373,8 +376,8 @@ class Statify
 	/**
 	* JavaScript-Header oder return
 	*
-	* @since   1.1
-	* @change  1.2.2
+	* @since   1.1.0
+	* @change  1.3.0
 	*
 	* @param   boolean  $is_snippet  JavaScript-Snippte als Aufruf?
 	* @return  mixed                 Exit oder return je nach Snippet
@@ -383,8 +386,7 @@ class Statify
 	private static function _jump_out($is_snippet) {
 		if ( $is_snippet ) {
 			nocache_headers();
-			status_header(204);
-			header('Content-type: text/javascript');
+			header('Content-type: text/javascript', true, 204);
 			exit;
 		}
 
@@ -395,8 +397,8 @@ class Statify
 	/**
 	* Deklariert GET-Variablen für die Weiternutzung
 	*
-	* @since   1.1
-	* @change  1.1
+	* @since   1.1.0
+	* @change  1.1.0
 	*
 	* @param   array  $vars  Array mit existierenden Variablen
 	* @return  array  $vars  Array mit Plugin-Variablen
@@ -413,7 +415,7 @@ class Statify
 	/**
 	* Ausgabe des JS-Snippets
 	*
-	* @since   1.1
+	* @since   1.1.0
 	* @change  1.2.8
 	*/
 
