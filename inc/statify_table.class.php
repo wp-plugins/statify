@@ -61,7 +61,7 @@ class Statify_Table
 		/* Anlegen */
 		dbDelta(
 			"CREATE TABLE `$wpdb->statify` (
-	  		`id` bigint(20) unsigned NOT NULL auto_increment,
+			`id` bigint(20) unsigned NOT NULL auto_increment,
 			  `created` date NOT NULL default '0000-00-00',
 			  `referrer` varchar(255) NOT NULL default '',
 			  `target` varchar(255) NOT NULL default '',

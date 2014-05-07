@@ -79,12 +79,12 @@ class Statify_Dashboard
 		wp_register_style(
 			'statify',
 			plugins_url('/css/dashboard.min.css', STATIFY_FILE),
-	  		array(),
+			array(),
 			STATIFY_VERSION
 		);
 
-	  	/* CSS ausgeben */
-	  	wp_enqueue_style('statify');
+		/* CSS ausgeben */
+		wp_enqueue_style('statify');
 	}
 
 
@@ -438,15 +438,15 @@ class Statify_Dashboard
 	private static function _clean_data()
 	{
 		/* Überspringen? */
-	    if ( get_transient('statify_cron') ) {
-	    	return;
-	    }
+		if ( get_transient('statify_cron') ) {
+			return;
+		}
 
-	    /* Global */
-	    global $wpdb;
+		/* Global */
+		global $wpdb;
 
-	    /* Optionen */
-	    $options = Statify::get_options();
+		/* Optionen */
+		$options = Statify::get_options();
 
 		/* Löschen */
 		$wpdb->query(
@@ -456,7 +456,7 @@ class Statify_Dashboard
 			)
 		);
 
-   		/* DB optimieren */
+		/* DB optimieren */
 		$wpdb->query(
 			"OPTIMIZE TABLE `$wpdb->statify`"
 		);

@@ -426,7 +426,7 @@ class Statify
 			<!-- Tracking von http://statify.de -->
 			<script type="text/javascript">
 				(function() {
-				    var e = document.createElement('script'),
+					var e = document.createElement('script'),
 						s = document.getElementsByTagName('script')[0],
 						r = encodeURIComponent(document.referrer),
 						t = encodeURIComponent(location.pathname),
