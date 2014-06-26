@@ -175,7 +175,7 @@ class Statify_Dashboard
 		/* Counter table */
 		$html .= "<tbody><tr>\n";
 		foreach($visits as $item) {
-			$html .= "<td>" .intval($item['count']). "</td>\n";
+			$html .= "<td>" .(int)$item['count']. "</td>\n";
 		}
 		$html .= "</tr></tbody>\n";
 
@@ -195,7 +195,7 @@ class Statify_Dashboard
 						<?php foreach ($stats['target'] as $target) { ?>
 							<tr>
 								<td class="b">
-									<?php echo intval($target['count']) ?>
+									<?php echo (int)$target['count'] ?>
 								</td>
 								<td class="t">
 									<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
@@ -216,7 +216,7 @@ class Statify_Dashboard
 						<?php foreach ($stats['referrer'] as $referrer) { ?>
 							<tr>
 								<td class="b">
-									<?php echo intval($referrer['count']) ?>
+									<?php echo (int)$referrer['count'] ?>
 								</td>
 								<td class="t">
 									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
