@@ -423,7 +423,7 @@ class Statify
 	{
 		if ( self::get_option('snippet') ) { ?>
 
-			<!-- Tracking von http://statify.de -->
+			<!-- Analytics von http://statify.de -->
 			<script type="text/javascript">
 				(function() {
 					var e = document.createElement('script'),
