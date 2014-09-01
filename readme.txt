@@ -16,11 +16,11 @@ Besucherstatistik in WordPress mit Schwerpunkten Datenschutz, Transparenz und Ü
 
 == Description ==
 
-Das kostenlose Plugin *Statify* verfolgt ein simples Ziel: Zugriffszahlen der WordPress-Website blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack. Ohne meterlange Datenschutzerklärungen.
+Das kostenlose Plugin *Statify* verfolgt ein simples Ziel: Zugriffszahlen der WordPress-Seiten blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack. Ohne meterlange Datenschutzerklärungen.
 
 
 = Dashboard-Widget =
-Weniger ist mehr: Den aktuellen Verlauf der Seitenaufrufe präsentiert das Statistik-Plugin in Form eines interaktiven Diagramms, siehe [Screenshots](https://wordpress.org/plugins/statify/screenshots/). Der Zeitskala folgen eine Liste mit den häufigsten Verweisquellen (Referrer) und den meist aufgerufenen Zielseiten (Target) im Blog. Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
+Weniger ist mehr: Den aktuellen Verlauf der Seitenaufrufe präsentiert das Statistik-Plugin in Form eines interaktiven [Diagramms](https://wordpress.org/plugins/statify/screenshots/). Der Zeitskala folgen Listen mit häufigsten Verweisquellen (Referrer) und Zielseiten (Targets). Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
 
 
 = Datenschutz =
@@ -28,15 +28,11 @@ In unmittelbarem Vergleich zu Statistik-Diensten wie *Google Analytics*, *WordPr
 
 
 = Filter =
-*Statify* protokolliert jeden Seitenaufruf im WordPress-Frontend. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten und Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
+*Statify* protokolliert jeden Seitenaufruf im Frontend der WordPress-Installation. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten sowie Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
 
 
 = Caching-Plugins =
-Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung der gecachten Blogseiten.
-
-
-> #### Statify Chrome App
-> Speziell für Inhaber und Administratoren mehrerer WordPress-Projekte wurde eine App für Google Chrome entwickelt: [Statify Chrome App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app) - *Statify*-Statistiken an einer Stelle im Browser gesammelt dargestellt. Ab sofort kein lästiges Aufrufen der einzelnen Dashboards mehr. Statistikberichte verknüpfter Blogs in einem Fenster.
+Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung bei gecachten Blogseiten.
 
 
 = Support =
