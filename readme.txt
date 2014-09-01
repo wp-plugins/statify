@@ -145,4 +145,3 @@ Freundlich formulierte (An)Fragen rund um das Plugin werden per E-Mail beantwort
 
 1. Statify Dashboard Widget
 2. Statify Dashboard Widget Optionen
-2. Statify Chrome App
