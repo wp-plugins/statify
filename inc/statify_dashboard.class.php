@@ -342,7 +342,7 @@ class Statify_Dashboard
 		</table>
 
 		<p class="meta-links">
-			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+			<a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a>
 		</p>
 	<?php }
 
