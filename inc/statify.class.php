@@ -329,7 +329,7 @@ class Statify
 
 		/* Referrer */
 		if ( ! empty($referrer) && strpos( $referrer, home_url() ) === false ) {
-			$data['referrer'] = esc_url_raw($referrer);
+			$data['referrer'] = esc_url_raw( $referrer, array('http', 'https') );
 		}
 
 		/* Ziel */
@@ -341,7 +341,7 @@ class Statify
 		}
 
 		/* Absichern */
-		$data['target'] = esc_url_raw($data['target']);
+		$data['target'] = esc_url_raw( $data['target'], array('http', 'https') );
 
 		/* Insert */
 		$wpdb->insert(
