@@ -296,7 +296,7 @@ class Statify
 		}
 
 		/* Kein Ziel? */
-		if ( empty($target) ) {
+		if ( empty($target) OR ! filter_var( home_url($target), FILTER_VALIDATE_URL ) ) {
 			return self::_jump_out($is_snippet);
 		}
 
@@ -331,16 +331,16 @@ class Statify
 			$data['referrer'] = esc_url_raw( $referrer, array('http', 'https') );
 		}
 
-		/* Ziel */
+		/* Set request target */
 		$data['target'] = home_url($target, 'relative');
 
-		/* Parameter entfernen */
+		/* Get url path only */
 		if ( $wp_rewrite->permalink_structure && ! is_search() ) {
 			$data['target'] = parse_url($data['target'], PHP_URL_PATH);
 		}
 
-		/* Absichern */
-		$data['target'] = esc_url_raw( $data['target'], array('http', 'https') );
+		/* Sanitize url */
+		$data['target'] = filter_var($data['target'], FILTER_SANITIZE_URL);
 
 		/* Insert */
 		$wpdb->insert(
