@@ -20,12 +20,14 @@ class Statify_Dashboard
 	*
 	* @since   0.1.0
 	* @change  1.2.3
+	*
+	* @hook    boolean  statify__user_can_see_stats (https://gist.github.com/sergejmueller/1ce0482c277508d8327e)
 	*/
 
 	public static function init()
 	{
 		/* Filter */
-		if ( ! current_user_can('edit_dashboard') ) {
+		if ( ! apply_filters('statify__user_can_see_stats', current_user_can('edit_dashboard')) ) {
 			return;
 		}
 
