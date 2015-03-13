@@ -34,6 +34,7 @@ defined('ABSPATH') OR exit;
 
 /* Konstanten */
 define('STATIFY_FILE', __FILE__);
+define('STATIFY_DIR', dirname(__FILE__));
 define('STATIFY_BASE', plugin_basename(__FILE__));
 
 
@@ -70,7 +71,7 @@ function statify_autoload($class) {
 		require_once(
 			sprintf(
 				'%s/inc/%s.class.php',
-				dirname(__FILE__),
+				STATIFY_DIR,
 				strtolower($class)
 			)
 		);
