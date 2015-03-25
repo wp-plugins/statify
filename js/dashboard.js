@@ -4,10 +4,10 @@
 	var labels = [],
 		data = [];
 	jQuery("#statify_chart_data tfoot th").each(function () {
-		labels.push(jQuery(this).html());
+		labels.push(jQuery(this).text());
 	});
 	jQuery("#statify_chart_data tbody td").each(function () {
-		data.push(jQuery(this).html());
+		data.push(jQuery(this).text());
 	});
 
 	// Draw
