@@ -76,22 +76,28 @@ class Statify_Install
 	* Anlegen der Daten
 	*
 	* @since   0.1.0
-	* @change  1.3.0
+	* @change  1.3.1
 	*/
 
 	private static function _apply()
 	{
-		/* Option */
+		/* Options */
 		add_option(
 			'statify',
-			array(),
-			'',
-			'no'
+			array()
 		);
 
 		/* Transients */
-		delete_transient('statify_chart');
-		delete_transient('statify_cron');
+		delete_transient('statify_data');
+
+		/* Cron */
+		if ( ! wp_next_scheduled('statify_cleanup') ) {
+			wp_schedule_event(
+				time(),
+				'daily',
+				'statify_cleanup'
+			);
+		}
 
 		/* Tabelle setzen */
 		Statify_Table::init();

@@ -2,8 +2,8 @@
 Contributors: sergej.mueller
 Tags: stats, analytics, privacy, dashboard
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN
-Requires at least: 3.8
-Tested up to: 4.1.1
+Requires at least: 3.9
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,7 +41,7 @@ Fragen rund um das Plugin werden gern per E-Mail beantwortet. Beachtet auch die 
 
 = Systemanforderungen =
 * PHP 5.2.4
-* WordPress ab 3.8
+* WordPress ab 3.9
 
 
 = Unterstützung =
