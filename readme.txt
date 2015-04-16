@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-Visitor statistics for WordPress with focus on _data protection_, _transparancy_ and _clarity_. Perfect as a widget in your WordPress Dashboard.
+Visitor statistics for WordPress with focus on data protection, transparancy and clarity. Perfect as a widget in your WordPress Dashboard.
 
 
 
@@ -31,7 +31,7 @@ Absolute privacy compliance coupled with transparent procedures: A locally in Wo
 
 
 = Compatibility =
-For compatibility with caching plugins like [Cachify](http://cachify.de) *Statify*  offers an optional switchable tracking via JavaScript. This function allows reliable count of cached blog pages.
+For compatibility with caching plugins like [Cachify](http://cachify.de) *Statify* offers an optional switchable tracking via JavaScript. This function allows reliable count of cached blog pages.
 
 
 = Requirements =
