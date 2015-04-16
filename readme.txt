@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-Visitor statistics for WordPress with focus on data protection, transparancy and clarity. Perfect as a widget in your WordPress Dashboard.
+Visitor statistics for WordPress with focus on data protection, transparancy and clarity. Perfect as a widget in your Dashboard.
 
 
 
