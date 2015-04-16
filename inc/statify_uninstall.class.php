@@ -79,22 +79,18 @@ class Statify_Uninstall
 	* Löschung der Daten
 	*
 	* @since   0.1.0
-	* @change  1.3.0
+	* @change  1.4.0
 	*/
 
 	private static function _apply()
 	{
-		/* Option */
+		/* Delete options */
 		delete_option('statify');
 
-		/* Transients */
-		delete_transient('statify_chart');
-		delete_transient('statify_cron');
-
-		/* Tabelle setzen */
+		/* Init table */
 		Statify_Table::init();
 
-		/* Tabelle anlegen */
+		/* Delete table */
 		Statify_Table::drop();
 	}
 }

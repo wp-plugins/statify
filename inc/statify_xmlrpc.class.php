@@ -48,7 +48,7 @@ class Statify_XMLRPC
 	public static function xmlrpc_callback($args) {
 		/* Keine Zugangsdaten? */
 		if ( empty($args[0]) OR empty($args[1]) ) {
-			return '{"error": "Keine Zugangsdaten"}';
+			return '{"error": "Empty login data"}';
 		}
 
 		/* Nutzer einloggen */
@@ -56,17 +56,17 @@ class Statify_XMLRPC
 
 		/* Falsche Zugangsdaten */
 		if ( ! $user OR is_wp_error($user) ) {
-			return '{"error": "Falsche Zugangsdaten"}';
+			return '{"error": "Incorrect login"}';
 		}
 
 		/* Berechtigung prüfen */
 		if ( ! user_can($user, 'edit_dashboard') ) {
-			return '{"error": "Keine Berechtigung"}';
+			return '{"error": "User can check failed"}';
 		}
 
 		/* Leer? */
 		if ( ! $data = Statify_Dashboard::get_stats() ) {
-			return '{"error": "Keine Daten"}';
+			return '{"error": "No data"}';
 		}
 
 		return json_encode($data['visits']);

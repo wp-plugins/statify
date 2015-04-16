@@ -11,30 +11,52 @@ defined('ABSPATH') OR exit;
 * @since 1.1
 */
 
-class Statify_Dashboard
+class Statify_Dashboard extends Statify
 {
 
 
 	/**
-	* Anzeige des Dashboard-Widgets
+	* Plugin version
+	*
+	* @since   1.4.0
+	*/
+
+	protected static $_plugin_version;
+
+
+	/**
+	* Dashboard widget initialize
 	*
 	* @since   0.1.0
-	* @change  1.2.3
+	* @change  1.4.0
 	*
 	* @hook    boolean  statify__user_can_see_stats (https://gist.github.com/sergejmueller/1ce0482c277508d8327e)
 	*/
 
 	public static function init()
 	{
-		/* Filter */
+		/* Filter user_can_see_stats */
 		if ( ! apply_filters('statify__user_can_see_stats', current_user_can('edit_dashboard')) ) {
 			return;
 		}
 
-		/* Version definieren */
-		self::_define_version();
+		/* Load textdomain */
+		load_plugin_textdomain(
+			'statify',
+			false,
+			wp_normalize_path(
+				sprintf(
+					'%s/lang',
+					STATIFY_DIR
+				)
+			)
+		);
 
-		/* Widget */
+		/* Plugin version */
+		self::_get_version();
+
+
+		/* Add dashboard widget */
 		wp_add_dashboard_widget(
 			'statify_dashboard',
 			'Statify',
@@ -48,7 +70,7 @@ class Statify_Dashboard
 			)
 		);
 
-		/* CSS laden */
+		/* Init CSS */
 		add_action(
 			'admin_print_styles',
 			array(
@@ -57,7 +79,7 @@ class Statify_Dashboard
 			)
 		);
 
-		/* JS laden */
+		/* Init JS */
 		add_action(
 			'admin_print_scripts',
 			array(
@@ -69,316 +91,214 @@ class Statify_Dashboard
 
 
 	/**
-	* Ausgabe der Stylesheets
+	* Print CSS
 	*
 	* @since   0.1.0
-	* @change  1.1.0
+	* @change  1.4.0
 	*/
 
 	public static function add_style()
 	{
-		/* CSS registrieren */
+		/* Register CSS */
 		wp_register_style(
 			'statify',
-			plugins_url('/css/dashboard.min.css', STATIFY_FILE),
+			plugins_url(
+				'/css/dashboard.min.css',
+				STATIFY_FILE
+			),
 			array(),
-			STATIFY_VERSION
+			self::$_plugin_version
 		);
 
-		/* CSS ausgeben */
+		/* Load CSS */
 		wp_enqueue_style('statify');
 	}
 
 
 	/**
-	* Ausgabe von JavaScript
+	* Print JavaScript
 	*
 	* @since   0.1.0
-	* @change  1.2.5
+	* @change  1.4.0
 	*/
 
 	public static function add_js() {
-		/* Keine Statistiken? */
-		if ( ! self::get_stats() ) {
-			return;
-		}
-
-		/* Edit modus? */
-		if ( isset($_GET['edit']) && $_GET['edit'] === 'statify_dashboard' ) {
-			return;
-		}
-
-		/* Register scripts */
+		/* Register JS */
 		wp_register_script(
 			'sm_raphael_js',
-			plugins_url('js/raphael.min.js', STATIFY_FILE),
+			plugins_url(
+				'js/raphael.min.js',
+				STATIFY_FILE
+			),
 			array(),
-			STATIFY_VERSION,
+			self::$_plugin_version,
 			true
 		);
 		wp_register_script(
 			'sm_raphael_helper',
-			plugins_url('js/raphael.helper.min.js', STATIFY_FILE),
+			plugins_url(
+				'js/raphael.helper.min.js',
+				STATIFY_FILE
+			),
 			array(),
-			STATIFY_VERSION,
+			self::$_plugin_version,
 			true
 		);
 		wp_register_script(
 			'statify_chart_js',
-			plugins_url('js/dashboard.min.js', STATIFY_FILE),
+			plugins_url(
+				'js/dashboard.min.js',
+				STATIFY_FILE
+			),
 			array('jquery'),
-			STATIFY_VERSION,
+			self::$_plugin_version,
 			true
 		);
 
-		/* Embed scripts */
-		wp_enqueue_script('sm_raphael_js');
-		wp_enqueue_script('sm_raphael_helper');
-		wp_enqueue_script('statify_chart_js');
+		/* Localize strings */
+		wp_localize_script(
+			'statify_chart_js',
+			'statify_translations',
+			array(
+				'pageview' => strip_tags( __('Pageview', 'statify') ),
+				'pageviews' => strip_tags( __('Pageviews', 'statify') )
+			)
+		);
 	}
 
 
 	/**
-	* Ausgabe der Frontseite
+	* Print widget frontview
 	*
 	* @since   0.1.0
-	* @change  1.3.0
+	* @change  1.4.0
 	*/
 
 	public static function print_frontview()
 	{
-		/* Get stats */
-		$stats = self::get_stats();
+		/* Load JS */
+		wp_enqueue_script('sm_raphael_js');
+		wp_enqueue_script('sm_raphael_helper');
+		wp_enqueue_script('statify_chart_js');
 
-		/* No results? */
-		if ( ! $stats ) {
-			echo sprintf(
-				'<div id="statify_chart"><p>%s</p></div>',
-				'Keine Daten verfügbar.'
-			);
-
-			return;
-		}
-
-		/* Get visits */
-		$visits = array_reverse($stats['visits']);
-
-		/* HTML start */
-		$html = "<table id=statify_chart_data>\n";
-
-
-		/* Timestamp table */
-		$html .= "<tfoot><tr>\n";
-		foreach ($visits as $item) {
-			$html .= "<th>" .esc_html($item['date']). "</th>\n";
-		}
-		$html .= "</tr></tfoot>\n";
-
-		/* Counter table */
-		$html .= "<tbody><tr>\n";
-		foreach($visits as $item) {
-			$html .= "<td>" .(int)$item['count']. "</td>\n";
-		}
-		$html .= "</tr></tbody>\n";
-
-
-		/* HTML end */
-		$html .= "</table>\n";
-
-		/* Print html */
-		echo '<div id="statify_chart">' .$html. '</div>'; ?>
-
-		<?php if ( $stats['target'] ) { ?>
-			<div class="table target">
-				<p class="sub">Top Inhalte</p>
-
-				<div>
-					<table>
-						<?php foreach ($stats['target'] as $target) { ?>
-							<tr>
-								<td class="b">
-									<?php echo (int)$target['count'] ?>
-								</td>
-								<td class="t">
-									<a href="<?php echo esc_url($target['url']) ?>" target="_blank"><?php echo esc_url($target['url']) ?></a>
-								</td>
-							</tr>
-						<?php } ?>
-					</table>
-				</div>
-			</div>
-		<?php } ?>
-
-		<?php if ( $stats['referrer'] ) { ?>
-			<div class="table referrer">
-				<p class="sub">Top Referrer</p>
-
-				<div>
-					<table>
-						<?php foreach ($stats['referrer'] as $referrer) { ?>
-							<tr>
-								<td class="b">
-									<?php echo (int)$referrer['count'] ?>
-								</td>
-								<td class="t">
-									<a href="<?php echo esc_url($referrer['url']) ?>" target="_blank"><?php echo esc_url($referrer['host']) ?></a>
-								</td>
-							</tr>
-						<?php } ?>
-					</table>
-				</div>
-			</div>
-		<?php } ?>
-	<?php }
+		/* Load template */
+        load_template(
+        	wp_normalize_path(
+        		sprintf(
+        			'%s/views/widget_front.view.php',
+        			STATIFY_DIR
+        		)
+        	)
+        );
+	}
 
 
 	/**
-	* Ausgabe der Backseite
+	* Print widget backview
 	*
 	* @since   0.4.0
-	* @change  1.2.3
+	* @change  1.4.0
 	*/
 
 	public static function print_backview()
 	{
-		/* Rechte */
+		/* Capability check */
 		if ( ! current_user_can('edit_dashboard') ) {
 			return;
 		}
 
-		/* Speichern */
+		/* Update plugin options */
 		if ( ! empty($_POST['statify']) ) {
-			/* Formular-Referer */
-			check_admin_referer('_statify');
-
-			/* Optionen speichern */
-			Statify::set_options(
-				array(
-					'days'	  => (int)@$_POST['statify']['days'],
-					'limit'	  => (int)@$_POST['statify']['limit'],
-					'today'	  => (int)@$_POST['statify']['today'],
-					'snippet' => (int)@$_POST['statify']['snippet']
-				)
-			);
-
-			/* Internen Cache Leeren */
-			delete_transient('statify_chart');
-
-			/* Cachify Cache leeren */
-			if ( has_action('cachify_flush_cache') ) {
-				do_action('cachify_flush_cache');
-			}
+            self::_save_options();
 		}
 
-		/* Zeiträume */
-		$dmatrix = array(
-			7 => '1 Woche',
-			14 => '2 Wochen',
-			21 => '3 Wochen',
-			30 => '1 Monat',
-			90 => '3 Monate',
-			180 => '6 Monate',
-			365 => '1 Jahr'
+		/* Load view */
+		load_template(
+			wp_normalize_path(
+				sprintf(
+					'%s/views/widget_back.view.php',
+					STATIFY_DIR
+				)
+			)
 		);
+	}
 
-		/* Optionen */
-		$options = Statify::get_options();
 
-		/* Security */
-		wp_nonce_field('_statify'); ?>
+    /**
+    * Save plugin options
+    *
+    * @since   1.4.0
+    * @change  1.4.0
+    */
 
-		<table class="form-table">
-			<tr valign="top">
-				<th scope="row">
-					Statistik
-				</th>
-				<td>
-					<fieldset>
-						<label for="statify_days">
-							<select name="statify[days]" id="statify_days">
-								<?php foreach( $dmatrix as $days => $string ) { ?>
-									<option value="<?php echo $days ?>" <?php selected($options['days'], $days); ?>>
-										<?php echo $string ?>
-									</option>
-								<?php } ?>
-							</select>
-							Zeitraum der Aufbewahrung
-						</label>
+    private static function _save_options()
+    {
+        /* Update values */
+        update_option(
+            'statify',
+            array(
+                'days'    => (int)@$_POST['statify']['days'],
+                'limit'   => (int)@$_POST['statify']['limit'],
+                'today'   => (int)@$_POST['statify']['today'],
+                'snippet' => (int)@$_POST['statify']['snippet']
+            )
+        );
 
-						<br />
+        /* Delete transient */
+        delete_transient('statify_data');
 
-						<label for="statify_limit">
-							<select name="statify[limit]" id="statify_limit">
-								<?php foreach( range(0, 12) as $num ) { ?>
-									<option <?php selected($options['limit'], $num) ?>>
-										<?php echo $num ?>
-									</option>
-								<?php } ?>
-							</select>
-							Anzahl der Einträge in Listen
-						</label>
+        /* Clear Cachify cache */
+        if ( has_action('cachify_flush_cache') ) {
+            do_action('cachify_flush_cache');
+        }
+    }
 
-						<br />
 
-						<label for="statify_today">
-							<input type="checkbox" name="statify[today]" id="statify_today" value="1" <?php checked($options['today'], 1) ?> />
-							Einträge in Listen nur von heute
-						</label>
-					</fieldset>
-				</td>
-			</tr>
+    /**
+    * Set plugin version from plugin meta data
+    *
+    * @since   1.4.0
+    * @change  1.4.0
+    */
 
-			<tr valign="top">
-				<th scope="row">
-					Tracking
-				</th>
-				<td>
-					<fieldset>
-						<label for="statify_snippet">
-							<input type="checkbox" name="statify[snippet]" id="statify_snippet" value="1" <?php checked($options['snippet'], 1) ?> />
-							Seitenzählung via JavaScript-Snippet
-						</label>
-					</fieldset>
-				</td>
-			</tr>
-		</table>
+    private static function _get_version()
+    {
+        /* Get plugin meta */
+        $meta = get_plugin_data(STATIFY_FILE);
 
-		<p class="meta-links">
-			<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ZAQUT9RLPW8QN" target="_blank">PayPal</a> &bull; <a href="https://flattr.com/t/1733733" target="_blank">Flattr</a> &bull; <a href="http://playground.ebiene.de/statify-wordpress-statistik/" target="_blank">Handbuch</a>
-		</p>
-	<?php }
+        self::$_plugin_version = $meta['Version'];
+    }
 
 
 	/**
-	* Rückgabe der Statistiken
+	* Get stats from cache
 	*
 	* @since   0.1.0
-	* @change  1.3.0
+	* @change  1.4.0
 	*
-	* @return  array  $data  Array mit Statistiken
+	* @return  array  $data  Data from cache or DB
 	*/
 
 	public static function get_stats()
 	{
-		/* Auf Cache zugreifen */
-		if ( $data = get_transient('statify_chart') ) {
+		/* Get from cache */
+		if ( $data = get_transient('statify_data') ) {
 			return $data;
 		}
 
-		/* DB reinigen */
-		self::_clean_data();
-
-		/* Stats abrufen */
+		/* Get from DB */
 		$data = self::_select_data();
 
-		/* Empty stats */
-		if ( empty($data['visits']) ) {
-			$data = NULL;
-		}
+		/* Prepare data */
+		if ( ! empty($data['visits']) ) {
+			$data['visits'] = array_reverse($data['visits']);
+		} else {
+            $data = NULL;
+        }
 
-		/* Merken */
+		/* Make cache */
 		set_transient(
-		   'statify_chart',
+		   'statify_data',
 		   $data,
 		   MINUTE_IN_SECONDS * 4
 		);
@@ -388,103 +308,46 @@ class Statify_Dashboard
 
 
 	/**
-	* Statistiken aus der DB
+	* Get stats from DB
 	*
 	* @since   0.1.0
-	* @change  1.2.5
+	* @change  1.4.0
 	*
-	* @return  array  Array mit ausgelesenen Daten
+	* @return  array  DB results
 	*/
 
 	private static function _select_data()
 	{
-		/* GLobal */
+		/* Global */
 		global $wpdb;
 
-		/* Optionen */
-		$options = Statify::get_options();
+		/* Init values */
+		$days  = (int)self::$_options['days'];
+		$limit = (int)self::$_options['limit'];
+		$today = (int)self::$_options['today'];
 
 		return array(
 			'visits' => $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT DATE_FORMAT(`created`, '%%d.%%m.%%Y') as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
-					(int)$options['days']
+					"SELECT `created` as `date`, COUNT(`created`) as `count` FROM `$wpdb->statify` GROUP BY `created` ORDER BY `created` DESC LIMIT %d",
+					$days
 				),
 				ARRAY_A
 			),
 			'target' => $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` " .( $options['today'] ? 'WHERE created = DATE(NOW())' : '' ). " GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
-					(int)$options['limit']
+					"SELECT COUNT(`target`) as `count`, `target` as `url` FROM `$wpdb->statify` " .( $today ? 'WHERE created = DATE(NOW())' : '' ). " GROUP BY `target` ORDER BY `count` DESC LIMIT %d",
+					$limit
 				),
 				ARRAY_A
 			),
 			'referrer' => $wpdb->get_results(
 				$wpdb->prepare(
-					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' " .( $options['today'] ? 'AND created = DATE(NOW())' : '' ). " GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
-					(int)$options['limit']
+					"SELECT COUNT(`referrer`) as `count`, `referrer` as `url`, SUBSTRING_INDEX(SUBSTRING_INDEX(TRIM(LEADING 'www.' FROM(TRIM(LEADING 'https://' FROM TRIM(LEADING 'http://' FROM TRIM(`referrer`))))), '/', 1), ':', 1) as `host` FROM `$wpdb->statify` WHERE `referrer` != '' " .( $today ? 'AND created = DATE(NOW())' : '' ). " GROUP BY `host` ORDER BY `count` DESC LIMIT %d",
+					$limit
 				),
 				ARRAY_A
 			)
 		);
-	}
-
-
-	/**
-	* Bereinigung der veralteten Werte in der DB
-	*
-	* @since   0.3.0
-	* @change  1.3.0
-	*/
-
-	private static function _clean_data()
-	{
-		/* Überspringen? */
-		if ( get_transient('statify_cron') ) {
-			return;
-		}
-
-		/* Global */
-		global $wpdb;
-
-		/* Optionen */
-		$options = Statify::get_options();
-
-		/* Löschen */
-		$wpdb->query(
-			$wpdb->prepare(
-				"DELETE FROM `$wpdb->statify` WHERE created <= SUBDATE(CURDATE(), %d)",
-				(int)$options['days']
-			)
-		);
-
-		/* DB optimieren */
-		$wpdb->query(
-			"OPTIMIZE TABLE `$wpdb->statify`"
-		);
-
-		/* Merken */
-		set_transient(
-			'statify_cron',
-			'ilovesweta',
-			HOUR_IN_SECONDS * 12
-		);
-	}
-
-
-	/**
-	* Plugin-Version als Konstante
-	*
-	* @since   1.1.0
-	* @change  1.1.0
-	*/
-
-	private static function _define_version()
-	{
-		/* Auslesen */
-		$meta = get_plugin_data(STATIFY_FILE);
-
-		/* Zuweisen */
-		define('STATIFY_VERSION', $meta['Version']);
 	}
 }

@@ -2,146 +2,150 @@
 Contributors: sergej.mueller
 Tags: stats, analytics, privacy, dashboard
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN
-Requires at least: 3.8
-Tested up to: 4.1.1
+Requires at least: 3.9
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-Besucherstatistik in WordPress mit Schwerpunkten Datenschutz, Transparenz und Übersichtlichkeit. Ideal für Dashboard.
+Visitor statistics for WordPress with focus on _data protection_, _transparancy_ and _clarity_. Perfect as a widget in your WordPress Dashboard.
 
 
 
 == Description ==
+The free and add-free plugin [Statify](http://statify.de) pursues a simple objective: to provide a straightforward and compact access to the number of site views.
 
-Das kostenlose Plugin *Statify* verfolgt ein simples Ziel: Zugriffszahlen der WordPress-Seiten blitzschnell und kompakt zugänglich machen. Ohne Schnickschnack. Ohne meterlange Datenschutzerklärungen.
+No frills. No Cookies. No third party. No storage of personal data. No endless data privacy statements.
 
+An interactive chart is followed by lists of the most common reference sources and target pages. The period of statistics and length of lists can be set directly in the dashboard widget.
 
-= Dashboard-Widget =
-Weniger ist mehr: Den aktuellen Verlauf der Seitenaufrufe präsentiert das Statistik-Plugin in Form eines interaktiven [Diagramms](https://wordpress.org/plugins/statify/screenshots/). Der Zeitskala folgen Listen mit häufigsten Verweisquellen (Referrer) und Zielseiten (Targets). Praktisch: Der Statistikzeitraum sowie die Listenlänge lassen sich direkt im Dashboard-Widget konfigurieren.
-
-
-= Datenschutz =
-In unmittelbarem Vergleich zu Statistik-Diensten wie *Google Analytics*, *WordPress.com Stats* und *Piwik* verarbeitet und speichert *Statify* keinerlei personenbezogene Daten wie z.B. IP-Adressen – *Statify* zählt Seitenaufrufe, keine Besucher. Absolute Datenschutzkonformität gepaart mit transparenter Arbeitsweise: Eine lokal in WordPress angelegte Datenbanktabelle besteht aus nur 4 Feldern (ID, Datum, Quelle, Ziel) und kann vom Administrator jederzeit eingesehen, bereinigt und geleert werden.
+> For German users: [Plugin-Beschreibung in Deutsch](https://github.com/sergejmueller/statify)
 
 
-= Filter =
-*Statify* protokolliert jeden Seitenaufruf im Frontend der WordPress-Installation. Ausgeschlossen sind Preview-, Feed-, Ressourcen-Ansichten sowie Zugriffe durch angemeldete Nutzer. Mehr Einzelheiten zu Optionen und Funktionen im [Online-Handbuch](http://playground.ebiene.de/statify-wordpress-statistik/).
+= Data Privacy =
+In direct comparison to statistics services such as *Google Analytics*, *WordPress.com Stats* and *Piwik* *Statify* doesn't process and store personal data as e.g. IP addresses – *Statify* counts site views, not visitors.
+
+Absolute privacy compliance coupled with transparent procedures: A locally in WordPress created database table consists of only 4 fields (ID, date, source, target) and can be viewed at any time, cleaned up and cleared by the administrator.
 
 
-= Caching-Plugins =
-Für die Kompatibilität mit Caching-Plugins wie [Cachify](http://wordpress.org/extend/plugins/cachify/) verfügt *Statify* über ein optional zuschaltbares Tracking via JavaScript-Snippet. Diese Methode erlaubt eine zuverlässige Zählung bei gecachten Blogseiten.
+= Compatibility =
+For compatibility with caching plugins like [Cachify](http://cachify.de) *Statify*  offers an optional switchable tracking via JavaScript. This function allows reliable count of cached blog pages.
 
 
-= Support =
-Fragen rund um das Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Guidelines](https://plus.google.com/+SergejMüller/posts/Ex2vYGN8G2L).
-
-
-= Systemanforderungen =
+= Requirements =
 * PHP 5.2.4
-* WordPress ab 3.8
+* WordPress 3.9
 
 
-= Unterstützung =
-* Per [Flattr](https://flattr.com/thing/148966/)
-* Per [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN)
+= Memory Usage =
+* Backend: ~ 0,2 MB
+* Frontend: ~ 0,1 MB
 
 
-= Handbuch =
-* [Statify: Statistik für WordPress](http://playground.ebiene.de/statify-wordpress-statistik/)
+= Languages =
+* German
+* English
+* Русский
 
 
-= Website =
-* [statify.de](http://statify.de)
+= Contributors =
+* [Caspar Hübinger](http://glueckpress.com)
+* [Bego Mario Garde](https://garde-medienberatung.de)
 
 
-= Autor =
-* [Twitter](https://twitter.com/wpSEO "Sergej Müller auf Twitter")
-* [Google+](https://plus.google.com/110569673423509816572 "Sergej Müller auf Google+")
+= Author =
+* [Twitter](https://twitter.com/wpSEO)
+* [Google+](https://plus.google.com/110569673423509816572)
 * [Plugins](http://wpcoder.de "WordPress Plugins")
 
 
 
 == Changelog ==
 
-= 1.3.0 =
-* Sourcecode-Optimierung für die Plugin-Finalisierung
+= 1.4.0 / 16.04.2014 =
+* WordPress 4.2 support
+* Plug-wide code refactoring
+* Translations for English and Russian
+* [GitHub Repository](https://github.com/sergejmueller/statify)
 
-= 1.2.8 =
-* JavaScript-Snippet: Relativer Pfad für HTTP(S)-Aufrufe
+= 1.3.0 / 28.04.2014 =
+* Sourcecode optimization for plugin-finalization
 
-= 1.2.7 =
-* Unterstützung zu WordPress 3.9
-* Korrektur der Dashboard-Links (wenn WordPress im Unterordner)
+= 1.2.8 / 19.04.2014 =
+* JavaScript-Snippet: Relative Path for HTTP(S)-calls
 
-= 1.2.6 =
-* Optimierung für WordPress 3.8
-* Steuerung des Trackings via `statify_skip_tracking`
+= 1.2.7 / 09.04.2014 =
+* Support for WordPress 3.9
+* Correction of dashboard links (if WordPress is in subfolder)
 
-= 1.2.5 =
-* Umstellung der Diagramm-Software
+= 1.2.6 / 12.12.2013 =
+* Optimization for WordPress 3.8
+* Control of tracking via `statify_skip_tracking`
 
-= 1.2.4 =
-* Kompatibilität zu WordPress 3.6
+= 1.2.5 / 22.08.2013 =
+* Migration of chart-software
 
-= 1.2.3 =
-* Zusätzliche Absicherung der PHP-Klassen vor direkten Aufrufen
-* Ersatz für Deprecated [User Levels](http://codex.wordpress.org/Roles_and_Capabilities#User_Levels)
+= 1.2.4 / 06.08.2013 =
+* Compatibility to WordPress 3.6
 
-= 1.2.2 =
-* No-Cache und No-Content Header für das optionale Zähl-JavaScript
+= 1.2.3 / 06.06.2013 =
+* Additional protection of PHP classes against direct access
+* Replacement for Deprecated [User Levels](http://codex.wordpress.org/Roles_and_Capabilities#User_Levels)
 
-= 1.2.1 =
-* Zusätzliche Zeiträume (bis zu einem Jahr) für Statistik
-* WordPress 3.4 als Systemanforderung
+= 1.2.2 / 14.03.2013 =
+* No-Cache and No-Content Header for optional Count JavaScript
 
-= 1.2 =
-* Speziell für Chrome-Browser entwickelte [Statify App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
-* Fix für eingeführte XML-RPC-Schnittstelle
+= 1.2.1 / 18.12.2012 =
+* Additional periods (up to one year) for statistics
+* WordPress 3.4 as requirement
 
-= 1.1 =
+= 1.2 / 29.11.2012 =
+* Spezially for Chrome Browser developped [Statify App](http://playground.ebiene.de/statify-wordpress-statistik/#chrome_app)
+* Fix for introduced XML-RPC-interface
+
+= 1.1 / 23.11.2012 =
 * WordPress 3.5 Support
-* Schnittstelle via XML-RPC
-* Refactoring der Code-Basis
-* Überarbeitung der Online-Dokumentation
-* Optionales Tracking via JavaScript für Caching-Plugins
+* Interface via XML-RPC
+* Refactoring of Code Base
+* Revision of Online Documentation
+* Optional Tracking via JavaScript for Caching-Plugins
 
-= 1.0 =
+= 1.0 / 12.06.2012 =
 * WordPress 3.4 Support
-* [Offizielle Plugin-Website](http://statify.de "Statify WordPress Stats")
-* Unkomprimierte Version des Source Codes
+* [Official Plugin Website](http://statify.de "Statify WordPress Stats")
+* Uncompressed Version of Source Codes
 
-= 0.9 =
+= 0.9 / 23.12.2011 =
 * Xmas Edition
 
-= 0.8 =
-* Unterstützung für WordPress 3.3
-* Anzeige des Dashboard-Widgets auch für Autoren
-* Direkter Link zu den Einstellungen auf dem Dashboard
-* Filterung der Ziele/Referrer auf den aktuellen Tag
+= 0.8 / 14.12.2011 =
+* Support für WordPress 3.3
+* Display of Dashboard Widgets also for authors
+* Direct Link to settings on dashboard
+* Filtering der Targets/Referrer on the current date
 
-= 0.7 =
-* Umsortierung der Statistiktage
-* Umfärbung der Statistikmarkierung
-* Ignorierung der XMLRPC-Requests
+= 0.7 / 05.07.2011 =
+* Replacement of Statistic Days
+* Recolouring of Statistics Mark
+* Ignoring XML-RPC-Requests
 
-= 0.6 =
-* WordPress 3.2 Unterstützung
-* Support für WordPress Multisite
-* Bereinigung überflüssiger URL-Parameter bei Zielseiten
-* Interaktive Statistik mit weiterführenden Informationen
+= 0.6 / 22.06.2011 =
+* Support for WordPress 3.2
+* Support for WordPress Multisite
+* Adjustment of redundant URL parameters of target pages
+* Interaktive Statistics with further informations
 
-= 0.5 =
-* Fix: Abfrage für fehlende Referrer im Dashboard Widget
+= 0.5 / 15.05.2011 =
+* Fix: query for missing referrer in dashboard widget
 
-= 0.4 =
-* Statify geht online
+= 0.4 / 16.03.2011 =
+* Statify goes online
 
 
 
 == Screenshots ==
 
-1. Statify Dashboard Widget
-2. Statify Dashboard Widget Optionen
+1. Statify dashboard widget
+2. Statify dashboard widget options

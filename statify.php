@@ -1,12 +1,14 @@
 <?php
 /*
 Plugin Name: Statify
-Description: Kompakte, begreifliche und datenschutzkonforme Statistik für WordPress.
+Description: Compact, easy-to-use and privacy-compliant stats plugin for WordPress.
+Text Domain: statify
+Domain Path: /lang
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://statify.de
 License: GPLv2 or later
-Version: 1.3.0
+Version: 1.4.0
 */
 
 /*
@@ -32,7 +34,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 defined('ABSPATH') OR exit;
 
 
-/* Konstanten */
+/*  Constants */
 define('STATIFY_FILE', __FILE__);
 define('STATIFY_DIR', dirname(__FILE__));
 define('STATIFY_BASE', plugin_basename(__FILE__));
@@ -47,14 +49,21 @@ add_action(
 	)
 );
 register_activation_hook(
-	__FILE__,
+	STATIFY_FILE,
 	array(
 		'Statify_Install',
 		'init'
 	)
 );
+register_deactivation_hook(
+    STATIFY_FILE,
+    array(
+        'Statify_Deactivate',
+        'init'
+    )
+);
 register_uninstall_hook(
-	__FILE__,
+	STATIFY_FILE,
 	array(
 		'Statify_Uninstall',
 		'init'
@@ -62,18 +71,30 @@ register_uninstall_hook(
 );
 
 
-/* Autoload Init */
+/* Autoload */
 spl_autoload_register('statify_autoload');
 
-/* Autoload Funktion */
 function statify_autoload($class) {
-	if ( in_array($class, array('Statify', 'Statify_Dashboard', 'Statify_Install', 'Statify_Uninstall', 'Statify_Table', 'Statify_XMLRPC')) ) {
-		require_once(
-			sprintf(
-				'%s/inc/%s.class.php',
-				STATIFY_DIR,
-				strtolower($class)
-			)
-		);
-	}
+    $plugin_classes = array(
+        'Statify',
+        'Statify_Backend',
+        'Statify_Frontend',
+        'Statify_Dashboard',
+        'Statify_Install',
+        'Statify_Uninstall',
+        'Statify_Deactivate',
+        'Statify_Table',
+        'Statify_XMLRPC',
+        'Statify_Cron'
+    );
+
+    if ( in_array($class, $plugin_classes) ) {
+        require_once(
+            sprintf(
+                '%s/inc/%s.class.php',
+                STATIFY_DIR,
+                strtolower($class)
+            )
+        );
+    }
 }
