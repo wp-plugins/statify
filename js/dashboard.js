@@ -23,9 +23,9 @@
         leftgutter = 0,
         bottomgutter = 22,
         topgutter = 22,
-        color = '#0074a2',
+        color = '#0073aa',
         r = Raphael(statify_chart_id, width, height),
-        txt = {font: 'bold 12px "Open Sans", sans-serif', fill: "#333"},
+        txt = {font: 'bold 12px "Open Sans", sans-serif', fill: "#32373c"},
         X = (width - leftgutter * 2) / labels.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / max;
@@ -36,7 +36,7 @@
     .attr(
         {
             'font': 'normal 10px "Open Sans", sans-serif',
-            fill: "#bbb"
+            fill: "#b4b9be"
         }
     );
 

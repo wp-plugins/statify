@@ -1,7 +1,7 @@
 /* @group Front page */
 
 #statify_chart {
-    color: #aaa;
+    color: #a0a5aa;
     height: 140px;
     margin: 0 -4px;
     text-align: center;
@@ -23,7 +23,7 @@
     padding-bottom: 12px;
 }
 #statify_dashboard .table p.sub {
-    color: #BBB;
+    color: #b4b9be;
     margin: 0 0 -4px;
 }
 #statify_dashboard .table div {
