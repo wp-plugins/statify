@@ -64,6 +64,9 @@ For compatibility with caching plugins like [Cachify](http://cachify.de) *Statif
 
 == Changelog ==
 
+= 1.4.1 / 29.04.2015 =
+* Renew the tracking mechanism
+
 = 1.4.0 / 16.04.2015 =
 * WordPress 4.2 support
 * Plugin-wide code refactoring
